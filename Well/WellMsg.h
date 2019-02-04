@@ -14,8 +14,7 @@ public:
     WellMsg(Well* well);
 
     std::vector<std::string> sensorInfo();
-    unsigned int id;
-    std::string company;
+    std::string wellInfo();
 private:
     Well *_well;
 };

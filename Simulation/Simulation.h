@@ -7,11 +7,15 @@
 
 #include "../Well/Well.h"
 #include "../Display/Display.h"
+#include "../Well/WellMsg.h"
 
 class Simulation {
 public:
     Simulation();
     void run();
+
+    void update()
+    void log();
 private:
     std::vector<Well> _wells;
     Display *_display;
