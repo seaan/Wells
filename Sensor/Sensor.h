@@ -7,7 +7,12 @@
 
 
 class Sensor {
-
+public:
+    Sensor();
+    void update();
+private:
+    void *_data;
+    bool _enabled;
 };
 
 
