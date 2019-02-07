@@ -8,15 +8,16 @@
 #include "../Well/Well.h"
 #include "../Display/Display.h"
 #include "../Well/WellMsg.h"
+#include "../Utility/OilFieldDataParser.h"
 
 class Simulation {
 public:
     Simulation();
     void run();
-
-    void update()
-    void log();
 private:
+    void update();
+    void log();
+
     std::vector<Well> _wells;
     Display *_display;
 };

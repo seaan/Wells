@@ -3,3 +3,7 @@
 //
 
 #include "Simulation.h"
+
+void Simulation::run() {
+    OilFieldDataParser data = OilFieldDataParser("OilFieldData.xml");
+}
