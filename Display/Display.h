@@ -6,14 +6,13 @@
 #define WELLS_DISPLAY_H
 
 #include "../Well/WellMsg.h"
-#include <ostream>
+#include <iostream>
 
 class Display {
 public:
-    Display(std::ostream o);
+    Display(){}
     void log(WellMsg msg);
 private:
-    std::ostream _out;
 };
 
 

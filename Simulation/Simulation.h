@@ -7,12 +7,14 @@
 
 #include "../Well/Well.h"
 #include "../Display/Display.h"
-#include "../Well/WellMsg.h"
-#include "../Utility/OilFieldDataParser.h"
+
+#include <termios.h>
 
 class Simulation {
 public:
-    Simulation();
+    Simulation(){
+        _display = new Display();
+    }
     void run();
 private:
     void update();
@@ -20,6 +22,12 @@ private:
 
     std::vector<Well> _wells;
     Display *_display;
+
+    struct termios orig_termios;
+
+    void set_nonblock();
+    static void reset_terminal();
+    int kbhit();
 };
 
 
