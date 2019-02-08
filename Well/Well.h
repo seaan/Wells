@@ -15,6 +15,10 @@ public:
 
     void update();
 
+    void setEnabled(bool e);
+
+    bool getEnabled();
+
     char *getid();
 
     char *getCompany();
@@ -27,6 +31,8 @@ public:
 
 protected:
     std::vector<Sensor *> _sensors;
+
+    bool _enabled;
 
     char *_id;
     char *_company;

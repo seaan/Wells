@@ -11,9 +11,11 @@ WellMsg::WellMsg(Well *well) {
     std::sprintf(_well_info, "%s: %s", this->_well->getCompany(), this->_well->getid());
 
     for (Sensor *sensor: this->_well->getSensors()) {
-        char *info = new char();
-        std::sprintf(info, "%s: %.2f %s", sensor->getDisplayName(), sensor->getValue(), sensor->getAbbrev());
-        this->_sensor_info.push_back(info);
+        if(sensor->getEnabled()) {
+            char *info = new char();
+            std::sprintf(info, "%s: %.2f %s", sensor->getDisplayName(), sensor->getValue(), sensor->getAbbrev());
+            this->_sensor_info.push_back(info);
+        }
     }
 }
 

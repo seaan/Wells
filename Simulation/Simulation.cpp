@@ -10,6 +10,7 @@
 #include <sys/timeb.h>
 #include <time.h>
 #include <stdlib.h>
+
 //#include <sys/select.h>
 //#include <unistd.h>
 //#include <cstring>
@@ -59,8 +60,10 @@ void Simulation::update() {
 
 void Simulation::log() {
     for (Well *well: this->_wells) {
-        WellMsg msg(well);
-        _display->log(msg);
+        if (well->getEnabled()) {
+            WellMsg msg(well);
+            _display->log(msg);
+        }
     }
 }
 

@@ -10,12 +10,22 @@ Well::Well(char *id, char *company, int num_sensors) {
     strcpy(_id, id);
     strcpy(_company, company);
     this->_num_sensors = num_sensors;
+
+    _enabled = false;
 }
 
 void Well::update() {
     for (Sensor *sensor: _sensors) {
         sensor->update();
     }
+}
+
+void Well::setEnabled(bool e) {
+    this->_enabled = e;
+}
+
+bool Well::getEnabled() {
+    return this->_enabled;
 }
 
 char *Well::getid() {

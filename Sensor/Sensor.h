@@ -14,6 +14,8 @@ public:
 
     void update();
 
+    bool getEnabled();
+
     char *getDisplayName();
 
     char *getAbbrev();
