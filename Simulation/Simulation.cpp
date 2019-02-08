@@ -10,9 +10,9 @@
 #include <sys/timeb.h>
 #include <time.h>
 #include <stdlib.h>
-#include <sys/select.h>
-#include <unistd.h>
-#include <cstring>
+//#include <sys/select.h>
+//#include <unistd.h>
+//#include <cstring>
 
 void Simulation::run() {
     struct timeb time;
@@ -21,19 +21,18 @@ void Simulation::run() {
     bool done = false;  // while loop flag
     char c = 0;
 
-    OilFieldDataParser data = OilFieldDataParser("../OilFieldData.xml");
-    data.printWellData();
+    readFile("../OilFieldData.xml");
 
     ftime(&time);	// Get start time
     current_time = time.time + (((double)(time.millitm)) / 1000.0); // Convert to double
     target_time = current_time + 5.0; // Set next 5 second interval time
 
-    set_nonblock();
+//    set_nonblock();
     while(!done)     // Start an eternal loop
     {
-        c = getchar();
-        if(c > 0)
-            printf("Read: %c\n", c);
+//        c = getchar();
+//        if(c > 0)
+//            printf("Read: %c\n", c);
 
         ftime(&time);    // Get the current time
         current_time = time.time + (((double)(time.millitm)) / 1000.0); // Convert to double
@@ -41,7 +40,9 @@ void Simulation::run() {
         if(current_time >= target_time)
         {
             target_time += 1.0; // Set time for next 5 second interval
-            cout << "One\n";
+            update();
+            log();
+            cout << "- - - - - - - - - - - - - - - - - -\n";
         }
         c = 0;
         // Do other stuff here
@@ -50,26 +51,68 @@ void Simulation::run() {
     cout << "Done";
 }
 
-void Simulation::reset_terminal() {
-    tcsetattr(0, TCSANOW, &orig_termios);
+void Simulation::update() {
+
 }
 
-void Simulation::set_nonblock() {
-    struct termios nb_termios;
-
-    tcgetattr(0, &orig_termios);
-    memcpy(&nb_termios, &orig_termios, sizeof(nb_termios));
-    
-    std::atexit(reset_terminal);
-    cfmakeraw(&nb_termios);
-    tcsetattr(0, TCSANOW, &nb_termios);
+void Simulation::log() {
+    for(Well *well: this->_wells){
+        WellMsg msg(well);
+        printf("%s:\n", msg.getWellInfo());
+        for(char* sensor: msg.getSensorInfo()) {
+            printf("\t%s\n", sensor);
+        }
+    }
 }
 
-int Simulation::kbhit() {
-    struct timeval tv = {0L, 0L};
-    fd_set fds;
-    FD_ZERO(&fds);
-    FD_SET(0, &fds);
+void Simulation::readFile(const char *fileName) {
+    OilFieldDataParser data = OilFieldDataParser("../OilFieldData.xml");
 
-    return select(1, &fds, NULL, NULL, &tv);
+    for(int i = 0; i < data.getWellCount(); i++) {
+        char *id = new char();
+        char *opr = new char();
+        int num_sensors;
+        data.getWellData(id, opr, &num_sensors);
+        Well *well = new Well(id, opr, num_sensors);
+        _wells.push_back(well);
+    }
+
+    for(Well *well: _wells) {
+        char *type = new char();
+        char *class_name = new char();
+        char *display_name = new char();
+        char *units = new char();
+        char *abbrev = new char();
+        double min, max;
+
+        for(int i = 0; i < well->getNumSensors(); i++) {
+            data.getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
+
+            well->addSensor(type, class_name, display_name, units, abbrev, min, max);
+        }
+    }
 }
+
+//void Simulation::reset_terminal() {
+//    tcsetattr(0, TCSANOW, &orig_termios);
+//}
+//
+//void Simulation::set_nonblock() {
+//    struct termios nb_termios;
+//
+//    tcgetattr(0, &orig_termios);
+//    memcpy(&nb_termios, &orig_termios, sizeof(nb_termios));
+//
+//    std::atexit(reset_terminal);
+//    cfmakeraw(&nb_termios);
+//    tcsetattr(0, TCSANOW, &nb_termios);
+//}
+//
+//int Simulation::kbhit() {
+//    struct timeval tv = {0L, 0L};
+//    fd_set fds;
+//    FD_ZERO(&fds);
+//    FD_SET(0, &fds);
+//
+//    return select(1, &fds, NULL, NULL, &tv);
+//}

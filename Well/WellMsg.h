@@ -11,12 +11,15 @@
 
 class WellMsg {
 public:
-    WellMsg(Well* well);
+    WellMsg(Well *well);
+    ~WellMsg();
 
-    std::vector<std::string> sensorInfo();
-    std::string wellInfo();
+    std::vector<char*> getSensorInfo();
+    char* getWellInfo();
 private:
     Well *_well;
+    char *_well_info;
+    std::vector<char*> _sensor_info;
 };
 
 

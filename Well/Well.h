@@ -11,12 +11,21 @@
 
 class Well {
 public:
+    Well(char *id, char *company, int num_sensors);
     void update();
-private:
-    std::vector<Sensor> _sensors;
 
-    unsigned int _id;
-    std::string _company;
+    char* getid();
+    char* getCompany();
+    unsigned int getNumSensors();
+    std::vector<Sensor*> getSensors();
+
+    void addSensor(char *type, char *class_name, char *display_name, char* units, char* abbrev, double min, double max);
+protected:
+    std::vector<Sensor*> _sensors;
+
+    char* _id;
+    char* _company;
+    int _num_sensors;
 };
 
 

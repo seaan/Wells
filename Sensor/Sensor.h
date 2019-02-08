@@ -8,10 +8,18 @@
 
 class Sensor {
 public:
-    Sensor();
+    Sensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max);
+    ~Sensor();
+
     void update();
+    char* getDisplayName();
+    char* getAbbrev();
+    double getValue();
+
 private:
-    void *_data;
+    char *_type, *_class_name, *_display_name, *_units, *_abbrev;
+    double _min, _max, _value;
+
     bool _enabled;
 };
 

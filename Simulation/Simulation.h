@@ -20,14 +20,16 @@ private:
     void update();
     void log();
 
-    std::vector<Well> _wells;
+    void readFile(const char *fileName);
+
+    std::vector<Well*> _wells;
     Display *_display;
 
-    struct termios orig_termios;
-
-    void set_nonblock();
-    static void reset_terminal();
-    int kbhit();
+//    struct termios orig_termios;
+//
+//    void set_nonblock();
+//    static void reset_terminal();
+//    int kbhit();
 };
 
 
