@@ -15,6 +15,7 @@ public:
     Simulation(){
         _display = new Display();
     }
+
     void run();
 private:
     void update();

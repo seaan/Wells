@@ -15,17 +15,18 @@
 //#include <cstring>
 
 void Simulation::run() {
-    struct timeb time;
+    struct timeb struct_time;
     double current_time;
     double target_time;
     bool done = false;  // while loop flag
     char c = 0;
 
+    srand((unsigned int)(time(NULL))); // seed srand
     readFile("../OilFieldData.xml");
 
-    ftime(&time);	// Get start time
-    current_time = time.time + (((double)(time.millitm)) / 1000.0); // Convert to double
-    target_time = current_time + 5.0; // Set next 5 second interval time
+    ftime(&struct_time);	// Get start struct_time
+    current_time = struct_time.time + (((double)(struct_time.millitm)) / 1000.0); // Convert to double
+    target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
 //    set_nonblock();
     while(!done)     // Start an eternal loop
@@ -34,12 +35,12 @@ void Simulation::run() {
 //        if(c > 0)
 //            printf("Read: %c\n", c);
 
-        ftime(&time);    // Get the current time
-        current_time = time.time + (((double)(time.millitm)) / 1000.0); // Convert to double
+        ftime(&struct_time);    // Get the current struct_time
+        current_time = struct_time.time + (((double)(struct_time.millitm)) / 1000.0); // Convert to double
         // Check for 5 second interval to print status to screen
         if(current_time >= target_time)
         {
-            target_time += 1.0; // Set time for next 5 second interval
+            target_time += 5.0; // Set struct_time for next 5 second interval
             update();
             log();
             cout << "- - - - - - - - - - - - - - - - - -\n";
@@ -52,7 +53,9 @@ void Simulation::run() {
 }
 
 void Simulation::update() {
-
+    for(Well *well: _wells) {
+        well->update();
+    }
 }
 
 void Simulation::log() {

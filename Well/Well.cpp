@@ -12,6 +12,12 @@ Well::Well(char *id, char *company, int num_sensors) {
     this->_num_sensors = num_sensors;
 }
 
+void Well::update() {
+    for(Sensor *sensor: _sensors) {
+        sensor->update();
+    }
+}
+
 char* Well::getid() {
     return this->_id;
 }
