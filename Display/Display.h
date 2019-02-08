@@ -10,8 +10,10 @@
 
 class Display {
 public:
-    Display(){}
+    Display() {}
+
     void log(WellMsg msg);
+
 private:
 };
 

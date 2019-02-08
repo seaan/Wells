@@ -21,25 +21,24 @@ void Simulation::run() {
     bool done = false;  // while loop flag
     char c = 0;
 
-    srand((unsigned int)(time(NULL))); // seed srand
+    srand((unsigned int) (time(NULL))); // seed srand
     readFile("../OilFieldData.xml");
 
-    ftime(&struct_time);	// Get start struct_time
-    current_time = struct_time.time + (((double)(struct_time.millitm)) / 1000.0); // Convert to double
+    ftime(&struct_time);    // Get start struct_time
+    current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
     target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
 //    set_nonblock();
-    while(!done)     // Start an eternal loop
+    while (!done)     // Start an eternal loop
     {
 //        c = getchar();
 //        if(c > 0)
 //            printf("Read: %c\n", c);
 
         ftime(&struct_time);    // Get the current struct_time
-        current_time = struct_time.time + (((double)(struct_time.millitm)) / 1000.0); // Convert to double
+        current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
         // Check for 5 second interval to print status to screen
-        if(current_time >= target_time)
-        {
+        if (current_time >= target_time) {
             target_time += 5.0; // Set struct_time for next 5 second interval
             update();
             log();
@@ -53,25 +52,22 @@ void Simulation::run() {
 }
 
 void Simulation::update() {
-    for(Well *well: _wells) {
+    for (Well *well: _wells) {
         well->update();
     }
 }
 
 void Simulation::log() {
-    for(Well *well: this->_wells){
+    for (Well *well: this->_wells) {
         WellMsg msg(well);
-        printf("%s:\n", msg.getWellInfo());
-        for(char* sensor: msg.getSensorInfo()) {
-            printf("\t%s\n", sensor);
-        }
+        _display->log(msg);
     }
 }
 
 void Simulation::readFile(const char *fileName) {
     OilFieldDataParser data = OilFieldDataParser("../OilFieldData.xml");
 
-    for(int i = 0; i < data.getWellCount(); i++) {
+    for (int i = 0; i < data.getWellCount(); i++) {
         char *id = new char();
         char *opr = new char();
         int num_sensors;
@@ -80,7 +76,7 @@ void Simulation::readFile(const char *fileName) {
         _wells.push_back(well);
     }
 
-    for(Well *well: _wells) {
+    for (Well *well: _wells) {
         char *type = new char();
         char *class_name = new char();
         char *display_name = new char();
@@ -88,7 +84,7 @@ void Simulation::readFile(const char *fileName) {
         char *abbrev = new char();
         double min, max;
 
-        for(int i = 0; i < well->getNumSensors(); i++) {
+        for (int i = 0; i < well->getNumSensors(); i++) {
             data.getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
 
             well->addSensor(type, class_name, display_name, units, abbrev, min, max);

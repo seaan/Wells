@@ -13,20 +13,21 @@ Well::Well(char *id, char *company, int num_sensors) {
 }
 
 void Well::update() {
-    for(Sensor *sensor: _sensors) {
+    for (Sensor *sensor: _sensors) {
         sensor->update();
     }
 }
 
-char* Well::getid() {
+char *Well::getid() {
     return this->_id;
 }
 
-char* Well::getCompany() {
+char *Well::getCompany() {
     return this->_company;
 }
 
-void Well::addSensor(char *type, char *class_name, char *display_name, char* units, char* abbrev, double min, double max) {
+void
+Well::addSensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max) {
     Sensor *sensor = new Sensor(type, class_name, display_name, units, abbrev, min, max);
     this->_sensors.push_back(sensor);
 }
@@ -35,6 +36,6 @@ unsigned int Well::getNumSensors() {
     return this->_num_sensors;
 }
 
-std::vector<Sensor*> Well::getSensors() {
+std::vector<Sensor *> Well::getSensors() {
     return this->_sensors;
 }

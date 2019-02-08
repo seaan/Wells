@@ -23,7 +23,7 @@ Sensor::Sensor(char *type, char *class_name, char *display_name, char *units, ch
     this->_max = max;
     this->_value = 0;
 
-    if(this->_max == 0) this->_max = 10000;
+    if (this->_max == 0) this->_max = 10000;
 }
 
 Sensor::~Sensor() {
@@ -35,7 +35,7 @@ Sensor::~Sensor() {
 }
 
 void Sensor::update() {
-    _value = _min + (rand() % (int)(_max - _min));
+    _value = _min + (rand() % (int) (_max - _min));
 }
 
 char *Sensor::getDisplayName() {

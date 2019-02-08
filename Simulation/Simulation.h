@@ -12,18 +12,20 @@
 
 class Simulation {
 public:
-    Simulation(){
+    Simulation() {
         _display = new Display();
     }
 
     void run();
+
 private:
     void update();
+
     void log();
 
     void readFile(const char *fileName);
 
-    std::vector<Well*> _wells;
+    std::vector<Well *> _wells;
     Display *_display;
 
 //    struct termios orig_termios;
