@@ -20,7 +20,8 @@ WellMsg::WellMsg(Well *well) {
 }
 
 WellMsg::~WellMsg() {
-    delete _well_info;
+    delete this->_well_info;
+    this->_sensor_info.clear();
 }
 
 char *WellMsg::getWellInfo() {

@@ -25,14 +25,12 @@ private:
 
     void readFile(const char *fileName);
 
+    bool setEnabledWell(char *well_id, bool e);
+
+    bool setEnabledSensor(char *well_id, char *sensor_type, bool e);
+
     std::vector<Well *> _wells;
     Display *_display;
-
-//    struct termios orig_termios;
-//
-//    void set_nonblock();
-//    static void reset_terminal();
-//    int kbhit();
 };
 
 

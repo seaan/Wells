@@ -17,6 +17,8 @@ public:
 
     void setEnabled(bool e);
 
+    bool setEnabledSensor(char *type, bool e);
+
     bool getEnabled();
 
     char *getid();

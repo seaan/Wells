@@ -11,16 +11,14 @@
 #include <time.h>
 #include <stdlib.h>
 
-//#include <sys/select.h>
-//#include <unistd.h>
-//#include <cstring>
+#include <ncurses.h> // <conio.h> windows
+#include <cstring>
 
 void Simulation::run() {
     struct timeb struct_time;
     double current_time;
     double target_time;
     bool done = false;  // while loop flag
-    char c = 0;
 
     srand((unsigned int) (time(NULL))); // seed srand
     readFile("../OilFieldData.xml");
@@ -29,13 +27,8 @@ void Simulation::run() {
     current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
     target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
-//    set_nonblock();
     while (!done)     // Start an eternal loop
     {
-//        c = getchar();
-//        if(c > 0)
-//            printf("Read: %c\n", c);
-
         ftime(&struct_time);    // Get the current struct_time
         current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
         // Check for 5 second interval to print status to screen
@@ -45,8 +38,6 @@ void Simulation::run() {
             log();
             cout << "- - - - - - - - - - - - - - - - - -\n";
         }
-        c = 0;
-        // Do other stuff here
     }
 
     cout << "Done";
@@ -61,8 +52,9 @@ void Simulation::update() {
 void Simulation::log() {
     for (Well *well: this->_wells) {
         if (well->getEnabled()) {
-            WellMsg msg(well);
-            _display->log(msg);
+            WellMsg *msg = new WellMsg(well);
+            this->_display->log(msg);
+            delete msg;
         }
     }
 }
@@ -95,26 +87,21 @@ void Simulation::readFile(const char *fileName) {
     }
 }
 
-//void Simulation::reset_terminal() {
-//    tcsetattr(0, TCSANOW, &orig_termios);
-//}
-//
-//void Simulation::set_nonblock() {
-//    struct termios nb_termios;
-//
-//    tcgetattr(0, &orig_termios);
-//    memcpy(&nb_termios, &orig_termios, sizeof(nb_termios));
-//
-//    std::atexit(reset_terminal);
-//    cfmakeraw(&nb_termios);
-//    tcsetattr(0, TCSANOW, &nb_termios);
-//}
-//
-//int Simulation::kbhit() {
-//    struct timeval tv = {0L, 0L};
-//    fd_set fds;
-//    FD_ZERO(&fds);
-//    FD_SET(0, &fds);
-//
-//    return select(1, &fds, NULL, NULL, &tv);
-//}
+bool Simulation::setEnabledWell(char *well_id, bool e) {
+    for(Well *well: _wells) {
+        if(strcmp(well->getid(), well_id) == 0) {
+            well->setEnabled(e);
+            return true; // id is unique for the wells
+        }
+    }
+    return false;
+}
+
+bool Simulation::setEnabledSensor(char *well_id, char *sensor_type, bool e) {
+    for(Well *well: _wells) {
+        if(strcmp(well->getid(), well_id) == 0) {
+            return well->setEnabledSensor(sensor_type, e);
+        }
+    }
+    return false;
+}

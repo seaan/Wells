@@ -14,11 +14,15 @@ public:
 
     void update();
 
+    void setEnabled(bool e);
+
     bool getEnabled();
 
     char *getDisplayName();
 
     char *getAbbrev();
+
+    char *getType();
 
     double getValue();
 

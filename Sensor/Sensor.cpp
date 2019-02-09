@@ -39,6 +39,10 @@ void Sensor::update() {
     _value = _min + (rand() % (int) (_max - _min));
 }
 
+void Sensor::setEnabled(bool e) {
+    this->_enabled = e;
+}
+
 bool Sensor::getEnabled() {
     return this->_enabled;
 }
@@ -49,6 +53,10 @@ char *Sensor::getDisplayName() {
 
 char *Sensor::getAbbrev() {
     return this->_abbrev;
+}
+
+char *Sensor::getType() {
+    return this->_type;
 }
 
 double Sensor::getValue() {

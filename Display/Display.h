@@ -12,7 +12,7 @@ class Display {
 public:
     Display() {}
 
-    void log(WellMsg msg);
+    void log(WellMsg *msg);
 
 private:
 };

@@ -24,6 +24,16 @@ void Well::setEnabled(bool e) {
     this->_enabled = e;
 }
 
+bool Well::setEnabledSensor(char *type, bool e) {
+    for (Sensor *sensor: _sensors) {
+        if (strcmp(sensor->getType(), type) == 0) {
+            sensor->setEnabled(e);
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Well::getEnabled() {
     return this->_enabled;
 }
