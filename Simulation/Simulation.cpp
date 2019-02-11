@@ -10,9 +10,9 @@
 #include <sys/timeb.h>
 #include <time.h>
 #include <stdlib.h>
-//#include <sys/select.h>
-//#include <unistd.h>
-//#include <cstring>
+#include <sys/select.h>
+#include <unistd.h>
+#include <cstring>
 
 void Simulation::run() {
     struct timeb struct_time;
@@ -28,7 +28,6 @@ void Simulation::run() {
     current_time = struct_time.time + (((double)(struct_time.millitm)) / 1000.0); // Convert to double
     target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
-//    set_nonblock();
     while(!done)     // Start an eternal loop
     {
 //        c = getchar();
@@ -48,8 +47,6 @@ void Simulation::run() {
         c = 0;
         // Do other stuff here
     }
-
-    cout << "Done";
 }
 
 void Simulation::update() {
@@ -69,13 +66,13 @@ void Simulation::log() {
 }
 
 void Simulation::readFile(const char *fileName) {
-    OilFieldDataParser data = OilFieldDataParser("../OilFieldData.xml");
+    data = new OilFieldDataParser("../OilFieldData.xml");
 
-    for(int i = 0; i < data.getWellCount(); i++) {
+    for(int i = 0; i < data->getWellCount(); i++) {
         char *id = new char();
         char *opr = new char();
         int num_sensors;
-        data.getWellData(id, opr, &num_sensors);
+        data->getWellData(id, opr, &num_sensors);
         Well *well = new Well(id, opr, num_sensors);
         _wells.push_back(well);
     }
@@ -89,33 +86,69 @@ void Simulation::readFile(const char *fileName) {
         double min, max;
 
         for(int i = 0; i < well->getNumSensors(); i++) {
-            data.getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
+            data->getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
 
             well->addSensor(type, class_name, display_name, units, abbrev, min, max);
         }
     }
 }
 
-//void Simulation::reset_terminal() {
-//    tcsetattr(0, TCSANOW, &orig_termios);
-//}
-//
-//void Simulation::set_nonblock() {
-//    struct termios nb_termios;
-//
-//    tcgetattr(0, &orig_termios);
-//    memcpy(&nb_termios, &orig_termios, sizeof(nb_termios));
-//
-//    std::atexit(reset_terminal);
-//    cfmakeraw(&nb_termios);
-//    tcsetattr(0, TCSANOW, &nb_termios);
-//}
-//
-//int Simulation::kbhit() {
-//    struct timeval tv = {0L, 0L};
-//    fd_set fds;
-//    FD_ZERO(&fds);
-//    FD_SET(0, &fds);
-//
-//    return select(1, &fds, NULL, NULL, &tv);
-//}
+void Simulation::editWell() {
+    char* addrem = new char();
+    char* id = new char();
+    bool enabled = false;
+
+    cout << "Well ID list: \n";
+    data->printWellData();
+
+    cout << "\nWould you like to add or remove a well from the display? [add/remove]:";
+    cin >> addrem;
+    cout << "Please enter the well ID: ";
+    cin >> id;
+
+    if(strcmp(addrem, "add") == 0) {
+        enabled = true;
+    }
+    else if(strcmp(addrem, "remove") == 0){
+        enabled = false;
+    }
+    else {
+        cout << "Error reading input, please try again.\n";
+        return;
+    }
+
+    for(Well *well: _wells) {
+        if(strcmp(well->getid(), id) == 0) {
+            well->setEnabled(enabled);
+        }
+    }
+}
+
+void Simulation::editSensor() {
+    char* addrem = new char();
+    char* id = new char();
+    char *type = new char();
+    bool enabled = false;
+
+    cout << "\nWould you like to add or remove a sensor from the display? [add/remove]:";
+    cin >> addrem;
+    cout << "Please enter the well ID: ";
+    cin >> id;
+
+    if(strcmp(addrem, "add") == 0) {
+        enabled = true;
+    }
+    else if(strcmp(addrem, "remove") == 0){
+        enabled = false;
+    }
+    else {
+        cout << "Error reading input, please try again.\n";
+        return;
+    }
+
+    for(Well *well: _wells) {
+        if(strcmp(well->getid(), id) == 0) {
+            well->setEnabledSensor(type, enabled);
+        }
+    }
+}

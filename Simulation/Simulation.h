@@ -23,14 +23,12 @@ private:
 
     void readFile(const char *fileName);
 
+    void editWell();
+    void editSensor();
+
     std::vector<Well*> _wells;
     Display *_display;
-
-//    struct termios orig_termios;
-//
-//    void set_nonblock();
-//    static void reset_terminal();
-//    int kbhit();
+    OilFieldDataParser *data;
 };
 
 
