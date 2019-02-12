@@ -25,11 +25,13 @@ public:
 
     char *getCompany();
 
-    unsigned int getNumSensors();
+    int getNumSensors();
 
     std::vector<Sensor *> getSensors();
 
-    void addSensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max);
+    void addSensor(Sensor *sensor);
+
+    std::vector<char*> findSensorTypes();
 
 protected:
     std::vector<Sensor *> _sensors;

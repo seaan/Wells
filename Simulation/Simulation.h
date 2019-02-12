@@ -7,14 +7,12 @@
 
 #include "../Well/Well.h"
 #include "../Display/Display.h"
-
-#include <termios.h>
+#include "../Utility/OilFieldDataParser.h"
 
 class Simulation {
 public:
     Simulation() {
         _display = new Display();
-
     }
 
     void run();

@@ -46,16 +46,22 @@ char *Well::getCompany() {
     return this->_company;
 }
 
-void
-Well::addSensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max) {
-    Sensor *sensor = new Sensor(type, class_name, display_name, units, abbrev, min, max);
+void Well::addSensor(Sensor *sensor) {
     this->_sensors.push_back(sensor);
 }
 
-unsigned int Well::getNumSensors() {
+int Well::getNumSensors() {
     return this->_num_sensors;
 }
 
 std::vector<Sensor *> Well::getSensors() {
     return this->_sensors;
+}
+
+std::vector<char*> Well::findSensorTypes() {
+    std::vector<char*> result;
+    for(Sensor *sensor: _sensors) {
+        result.push_back(sensor->getType());
+    }
+    return result;
 }

@@ -5,16 +5,12 @@
 #include "Simulation.h"
 #include "../Well/WellMsg.h"
 #include "../Utility/OilFieldDataParser.h"
+#include "../Sensor/Sensor.h"
 
 #include <sys/types.h>
 #include <sys/timeb.h>
 #include <time.h>
 #include <stdlib.h>
-#include <sys/select.h>
-#include <unistd.h>
-#include <cstring>
-
-#include <ncurses.h> // <conio.h> windows
 #include <cstring>
 
 void Simulation::run() {
@@ -32,6 +28,13 @@ void Simulation::run() {
 
     while(!done)     // Start an eternal loop
     {
+        char input;
+        input = getchar();
+        if(input == 'w')
+            editWell();
+        if(input == 's')
+            editSensor();
+
         ftime(&struct_time);    // Get the current struct_time
         current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
         // Check for 5 second interval to print status to screen
@@ -82,8 +85,9 @@ void Simulation::readFile(const char *fileName) {
 
         for(int i = 0; i < well->getNumSensors(); i++) {
             _data->getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
+            Sensor *sensor = new Sensor(type, class_name, display_name, units, abbrev, min, max);
 
-            well->addSensor(type, class_name, display_name, units, abbrev, min, max);
+            well->addSensor(sensor);
         }
     }
 }
@@ -96,7 +100,7 @@ void Simulation::editWell() {
     cout << "Well ID list: \n";
     _data->printWellData();
 
-    cout << "\nWould you like to add or remove a well from the display? [add/remove]:";
+    cout << "\nWould you like to add or remove a well from the display? [add/remove]: ";
     cin >> addrem;
     cout << "Please enter the well ID: ";
     cin >> id;
@@ -125,10 +129,11 @@ void Simulation::editSensor() {
     char *type = new char();
     bool enabled = false;
 
-    cout << "\nWould you like to add or remove a sensor from the display? [add/remove]:";
+    cout << "\nWould you like to add or remove a sensor from the display? [add/remove]: ";
     cin >> addrem;
     cout << "Please enter the well ID: ";
     cin >> id;
+
 
     if(strcmp(addrem, "add") == 0) {
         enabled = true;
@@ -143,6 +148,13 @@ void Simulation::editSensor() {
 
     for(Well *well: _wells) {
         if(strcmp(well->getid(), id) == 0) {
+            cout << "Please enter the sensor type from the following:\n";
+
+            for(char* well_type: well->findSensorTypes()) {
+                cout << well_type << endl;
+            }
+
+            cin >> type;
             well->setEnabledSensor(type, enabled);
         }
     }
