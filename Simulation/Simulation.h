@@ -25,12 +25,12 @@ private:
 
     void readFile(const char *fileName);
 
-    bool setEnabledWell(char *well_id, bool e);
+    void editWell();
+    void editSensor();
 
-    bool setEnabledSensor(char *well_id, char *sensor_type, bool e);
-
-    std::vector<Well *> _wells;
+    std::vector<Well*> _wells;
     Display *_display;
+    OilFieldDataParser *data;
 };
 
 
