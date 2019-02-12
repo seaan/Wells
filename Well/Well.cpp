@@ -10,23 +10,44 @@ Well::Well(char *id, char *company, int num_sensors) {
     strcpy(_id, id);
     strcpy(_company, company);
     this->_num_sensors = num_sensors;
+
+    _enabled = false;
 }
 
 void Well::update() {
-    for(Sensor *sensor: _sensors) {
+    for (Sensor *sensor: _sensors) {
         sensor->update();
     }
 }
 
-char* Well::getid() {
+void Well::setEnabled(bool e) {
+    this->_enabled = e;
+}
+
+bool Well::setEnabledSensor(char *type, bool e) {
+    for (Sensor *sensor: _sensors) {
+        if (strcmp(sensor->getType(), type) == 0) {
+            sensor->setEnabled(e);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Well::getEnabled() {
+    return this->_enabled;
+}
+
+char *Well::getid() {
     return this->_id;
 }
 
-char* Well::getCompany() {
+char *Well::getCompany() {
     return this->_company;
 }
 
-void Well::addSensor(char *type, char *class_name, char *display_name, char* units, char* abbrev, double min, double max) {
+void
+Well::addSensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max) {
     Sensor *sensor = new Sensor(type, class_name, display_name, units, abbrev, min, max);
     this->_sensors.push_back(sensor);
 }
@@ -35,6 +56,6 @@ unsigned int Well::getNumSensors() {
     return this->_num_sensors;
 }
 
-std::vector<Sensor*> Well::getSensors() {
+std::vector<Sensor *> Well::getSensors() {
     return this->_sensors;
 }

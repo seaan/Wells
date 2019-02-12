@@ -12,14 +12,16 @@
 
 class Simulation {
 public:
-    Simulation(){
+    Simulation() {
         _display = new Display();
 
     }
 
     void run();
+
 private:
     void update();
+
     void log();
 
     void readFile(const char *fileName);

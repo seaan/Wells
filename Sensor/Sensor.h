@@ -9,11 +9,21 @@
 class Sensor {
 public:
     Sensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max);
+
     ~Sensor();
 
     void update();
-    char* getDisplayName();
-    char* getAbbrev();
+
+    void setEnabled(bool e);
+
+    bool getEnabled();
+
+    char *getDisplayName();
+
+    char *getAbbrev();
+
+    char *getType();
+
     double getValue();
 
 private:
