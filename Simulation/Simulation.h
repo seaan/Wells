@@ -14,6 +14,7 @@ class Simulation {
 public:
     Simulation(){
         _display = new Display();
+
     }
 
     void run();
@@ -28,7 +29,7 @@ private:
 
     std::vector<Well*> _wells;
     Display *_display;
-    OilFieldDataParser *data;
+    OilFieldDataParser *_data;
 };
 
 

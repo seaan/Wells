@@ -66,13 +66,13 @@ void Simulation::log() {
 }
 
 void Simulation::readFile(const char *fileName) {
-    data = new OilFieldDataParser("../OilFieldData.xml");
+    _data = new OilFieldDataParser("../OilFieldData.xml");
 
-    for(int i = 0; i < data->getWellCount(); i++) {
+    for(int i = 0; i < _data->getWellCount(); i++) {
         char *id = new char();
         char *opr = new char();
         int num_sensors;
-        data->getWellData(id, opr, &num_sensors);
+        _data->getWellData(id, opr, &num_sensors);
         Well *well = new Well(id, opr, num_sensors);
         _wells.push_back(well);
     }
@@ -86,7 +86,7 @@ void Simulation::readFile(const char *fileName) {
         double min, max;
 
         for(int i = 0; i < well->getNumSensors(); i++) {
-            data->getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
+            _data->getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
 
             well->addSensor(type, class_name, display_name, units, abbrev, min, max);
         }
@@ -99,7 +99,7 @@ void Simulation::editWell() {
     bool enabled = false;
 
     cout << "Well ID list: \n";
-    data->printWellData();
+    _data->printWellData();
 
     cout << "\nWould you like to add or remove a well from the display? [add/remove]:";
     cin >> addrem;
