@@ -3,14 +3,8 @@
 //
 
 #include "Simulation.h"
-#include "../Well/WellMsg.h"
-#include "../Utility/OilFieldDataParser.h"
-#include "../Sensor/Sensor.h"
 
-#include <sys/types.h>
 #include <sys/timeb.h>
-#include <time.h>
-#include <stdlib.h>
 #include <cstring>
 
 void Simulation::run() {
@@ -26,13 +20,13 @@ void Simulation::run() {
     current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
     target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
-    while(!done)     // Start an eternal loop
+    while (!done)     // Start an eternal loop
     {
         char input;
         input = getchar();
-        if(input == 'w')
+        if (input == 'w')
             editWell();
-        if(input == 's')
+        if (input == 's')
             editSensor();
 
         ftime(&struct_time);    // Get the current struct_time
@@ -66,7 +60,7 @@ void Simulation::log() {
 void Simulation::readFile(const char *fileName) {
     _data = new OilFieldDataParser("../OilFieldData.xml");
 
-    for(int i = 0; i < _data->getWellCount(); i++) {
+    for (int i = 0; i < _data->getWellCount(); i++) {
         char *id = new char();
         char *opr = new char();
         int num_sensors;
@@ -83,7 +77,7 @@ void Simulation::readFile(const char *fileName) {
         char *abbrev = new char();
         double min, max;
 
-        for(int i = 0; i < well->getNumSensors(); i++) {
+        for (int i = 0; i < well->getNumSensors(); i++) {
             _data->getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
             Sensor *sensor = new Sensor(type, class_name, display_name, units, abbrev, min, max);
 
@@ -93,8 +87,8 @@ void Simulation::readFile(const char *fileName) {
 }
 
 void Simulation::editWell() {
-    char* addrem = new char();
-    char* id = new char();
+    char *addrem = new char();
+    char *id = new char();
     bool enabled = false;
 
     cout << "Well ID list: \n";
@@ -105,27 +99,25 @@ void Simulation::editWell() {
     cout << "Please enter the well ID: ";
     cin >> id;
 
-    if(strcmp(addrem, "add") == 0) {
+    if (strcmp(addrem, "add") == 0) {
         enabled = true;
-    }
-    else if(strcmp(addrem, "remove") == 0){
+    } else if (strcmp(addrem, "remove") == 0) {
         enabled = false;
-    }
-    else {
+    } else {
         cout << "Error reading input, please try again.\n";
         return;
     }
 
-    for(Well *well: _wells) {
-        if(strcmp(well->getid(), id) == 0) {
+    for (Well *well: _wells) {
+        if (strcmp(well->getid(), id) == 0) {
             well->setEnabled(enabled);
         }
     }
 }
 
 void Simulation::editSensor() {
-    char* addrem = new char();
-    char* id = new char();
+    char *addrem = new char();
+    char *id = new char();
     char *type = new char();
     bool enabled = false;
 
@@ -135,22 +127,20 @@ void Simulation::editSensor() {
     cin >> id;
 
 
-    if(strcmp(addrem, "add") == 0) {
+    if (strcmp(addrem, "add") == 0) {
         enabled = true;
-    }
-    else if(strcmp(addrem, "remove") == 0){
+    } else if (strcmp(addrem, "remove") == 0) {
         enabled = false;
-    }
-    else {
+    } else {
         cout << "Error reading input, please try again.\n";
         return;
     }
 
-    for(Well *well: _wells) {
-        if(strcmp(well->getid(), id) == 0) {
+    for (Well *well: _wells) {
+        if (strcmp(well->getid(), id) == 0) {
             cout << "Please enter the sensor type from the following:\n";
 
-            for(char* well_type: well->findSensorTypes()) {
+            for (char *well_type: well->findSensorTypes()) {
                 cout << well_type << endl;
             }
 

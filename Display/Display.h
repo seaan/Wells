@@ -10,11 +10,14 @@
 
 class Display {
 public:
-    Display() {}
+    Display(std::ostream *out) {
+        _out = out;
+    }
 
     void log(WellMsg *msg);
 
 private:
+    std::ostream *_out;
 };
 
 

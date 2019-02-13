@@ -5,8 +5,8 @@
 #include "Display.h"
 
 void Display::log(WellMsg *msg) {
-    printf("%s\n", msg->getWellInfo());
+    *_out << msg->getWellInfo() << "\n";
     for (char *sensor: msg->getSensorInfo()) {
-        printf("\t%s\n", sensor);
+        *_out << "\t" << sensor << "\n";
     }
 }

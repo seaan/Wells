@@ -12,7 +12,7 @@
 class Simulation {
 public:
     Simulation() {
-        _display = new Display();
+        _display = new Display(&cout);
     }
 
     void run();
@@ -25,9 +25,10 @@ private:
     void readFile(const char *fileName);
 
     void editWell();
+
     void editSensor();
 
-    std::vector<Well*> _wells;
+    std::vector<Well *> _wells;
     Display *_display;
     OilFieldDataParser *_data;
 };

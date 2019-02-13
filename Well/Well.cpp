@@ -58,9 +58,9 @@ std::vector<Sensor *> Well::getSensors() {
     return this->_sensors;
 }
 
-std::vector<char*> Well::findSensorTypes() {
-    std::vector<char*> result;
-    for(Sensor *sensor: _sensors) {
+std::vector<char *> Well::findSensorTypes() {
+    std::vector<char *> result;
+    for (Sensor *sensor: _sensors) {
         result.push_back(sensor->getType());
     }
     return result;

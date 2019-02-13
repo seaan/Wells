@@ -5,13 +5,12 @@
 #include "WellMsg.h"
 
 WellMsg::WellMsg(Well *well) {
-    this->_well = well;
     this->_well_info = new char();
 
-    std::sprintf(_well_info, "%s: %s", this->_well->getCompany(), this->_well->getid());
+    std::sprintf(_well_info, "%s: %s", well->getCompany(), well->getid());
 
-    for (Sensor *sensor: this->_well->getSensors()) {
-        if(sensor->getEnabled()) {
+    for (Sensor *sensor: well->getSensors()) {
+        if (sensor->getEnabled()) {
             char *info = new char();
             std::sprintf(info, "%s: %.2f %s", sensor->getDisplayName(), sensor->getValue(), sensor->getAbbrev());
             this->_sensor_info.push_back(info);

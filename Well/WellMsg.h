@@ -20,7 +20,6 @@ public:
     char *getWellInfo();
 
 private:
-    Well *_well;
     char *_well_info;
     std::vector<char *> _sensor_info;
 };

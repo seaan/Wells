@@ -31,7 +31,7 @@ public:
 
     void addSensor(Sensor *sensor);
 
-    std::vector<char*> findSensorTypes();
+    std::vector<char *> findSensorTypes();
 
 protected:
     std::vector<Sensor *> _sensors;
