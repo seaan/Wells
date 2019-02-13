@@ -4,6 +4,11 @@
 
 #include "WellMsg.h"
 
+/**
+ * Constructs WellMsg object, uses input well to create _well_info
+ * and loops through well sensors to create _sensor_info strings.
+ * @param well Well object to initialize member variables with
+ */
 WellMsg::WellMsg(Well *well) {
     this->_well_info = new char();
 
@@ -18,15 +23,26 @@ WellMsg::WellMsg(Well *well) {
     }
 }
 
+/**
+ * Destructor for WellMsg.
+ */
 WellMsg::~WellMsg() {
     delete this->_well_info;
     this->_sensor_info.clear();
 }
 
+/**
+ * Accessor for _well_info.
+ * @return well info string
+ */
 char *WellMsg::getWellInfo() {
     return _well_info;
 }
 
+/**
+ * Accessor for _sensor_info.
+ * @return vector of strings with sensor info for the well
+ */
 std::vector<char *> WellMsg::getSensorInfo() {
     return _sensor_info;
 }

@@ -11,9 +11,7 @@
 
 class Simulation {
 public:
-    Simulation() {
-        _display = new Display(&cout);
-    }
+    Simulation();
 
     void run();
 
