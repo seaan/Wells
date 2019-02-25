@@ -11,6 +11,32 @@
 			<OPERATOR>
 				US Oil
 			</OPERATOR>
+			<SENSOR_LIST>
+				<SENSOR>
+					BIT_DEPTH
+				</SENSOR>
+				<SENSOR>
+					HOLE_DEPTH
+				</SENSOR>
+				<SENSOR>
+					BIT_USAGE
+				</SENSOR>
+				<SENSOR>
+					RATE_OF_PENETRATION
+				</SENSOR>
+				<SENSOR>
+					PUMP_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					FLOW_OUT
+				</SENSOR>
+				<SENSOR>
+					MUD_PIT_VOLUME
+				</SENSOR>
+				<SENSOR>
+					TEST_SENSOR_ONE
+				</SENSOR>
+			</SENSOR_LIST>
 		</WELL>
 		<WELL>
 			<WELLID>
@@ -19,6 +45,32 @@
 			<OPERATOR>
 				US Oil
 			</OPERATOR>
+			<SENSOR_LIST>
+				<SENSOR>
+					BIT_DEPTH
+				</SENSOR>
+				<SENSOR>
+					HOLE_DEPTH
+				</SENSOR>
+				<SENSOR>
+					BIT_USAGE
+				</SENSOR>
+				<SENSOR>
+					PUMP_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					CASING_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					TORQUE_MAX
+				</SENSOR>
+				<SENSOR>
+					MUD_PIT_VOLUME
+				</SENSOR>
+				<SENSOR>
+					TEST_SENSOR_ONE
+				</SENSOR>
+			</SENSOR_LIST>
 		</WELL>
 		<WELL>
 			<WELLID>
@@ -27,6 +79,29 @@
 			<OPERATOR>
 				US Oil
 			</OPERATOR>
+			<SENSOR_LIST>
+				<SENSOR>
+					BIT_DEPTH
+				</SENSOR>
+				<SENSOR>
+					HOLE_DEPTH
+				</SENSOR>
+				<SENSOR>
+					BIT_USAGE
+				</SENSOR>
+				<SENSOR>
+					RATE_OF_PENETRATION
+				</SENSOR>
+				<SENSOR>
+					PUMP_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					FLOW_OUT
+				</SENSOR>
+				<SENSOR>
+					MUD_PIT_VOLUME
+				</SENSOR>
+			</SENSOR_LIST>
 		</WELL>
 		<WELL>
 			<WELLID>
@@ -35,6 +110,29 @@
 			<OPERATOR>
 				Random Oil
 			</OPERATOR>
+			<SENSOR_LIST>
+				<SENSOR>
+					BIT_DEPTH
+				</SENSOR>
+				<SENSOR>
+					HOLE_DEPTH
+				</SENSOR>
+				<SENSOR>
+					BIT_USAGE
+				</SENSOR>
+				<SENSOR>
+					PUMP_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					CASING_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					TORQUE_MAX
+				</SENSOR>
+				<SENSOR>
+					MUD_PIT_VOLUME
+				</SENSOR>
+			</SENSOR_LIST>
 		</WELL>
 		<WELL>
 			<WELLID>
@@ -43,6 +141,29 @@
 			<OPERATOR>
 				Random Oil
 			</OPERATOR>
+			<SENSOR_LIST>
+				<SENSOR>
+					BIT_DEPTH
+				</SENSOR>
+				<SENSOR>
+					HOLE_DEPTH
+				</SENSOR>
+				<SENSOR>
+					BIT_USAGE
+				</SENSOR>
+				<SENSOR>
+					RATE_OF_PENETRATION
+				</SENSOR>
+				<SENSOR>
+					PUMP_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					FLOW_OUT
+				</SENSOR>
+				<SENSOR>
+					MUD_PIT_VOLUME
+				</SENSOR>
+			</SENSOR_LIST>
 		</WELL>
 		<WELL>
 			<WELLID>
@@ -51,10 +172,33 @@
 			<OPERATOR>
 				Random Oil
 			</OPERATOR>
+			<SENSOR_LIST>
+				<SENSOR>
+					BIT_DEPTH
+				</SENSOR>
+				<SENSOR>
+					HOLE_DEPTH
+				</SENSOR>
+				<SENSOR>
+					BIT_USAGE
+				</SENSOR>
+				<SENSOR>
+					PUMP_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					CASING_PRESSURE
+				</SENSOR>
+				<SENSOR>
+					TORQUE_MAX
+				</SENSOR>
+				<SENSOR>
+					MUD_PIT_VOLUME
+				</SENSOR>
+			</SENSOR_LIST>
 		</WELL>
 	</WELLS>
 	<SENSORS>
-		<SENSOR>
+		<SENSOR_TYPE>
 			<TYPE>
 				BIT_DEPTH
 			</TYPE>
@@ -68,16 +212,25 @@
 				0.0
 			</MINVALUE>
 			<MAXVALUE>
-				UNDEFINED
+				20000.0
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				feet
 			</UNITS>
 			<UNITABBREVIATION>
 				ft
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				RAND_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				HOLE_DEPTH
 			</TYPE>
@@ -93,14 +246,23 @@
 			<MAXVALUE>
 				UNDEFINED
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				feet
 			</UNITS>
 			<UNITABBREVIATION>
 				ft
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				FOLLOWLINK_IFGREATER
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				BIT_DEPTH
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				RATE_OF_PENETRATION
 			</TYPE>
@@ -116,14 +278,55 @@
 			<MAXVALUE>
 				300.0
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				feet per hour
 			</UNITS>
 			<UNITABBREVIATION>
 				ft/hr
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				FOLLOWLINK_IFCHANGED
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				HOLE_DEPTH
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
+			<TYPE>
+				BIT_USAGE
+			</TYPE>
+			<CLASS>
+				SensorBitUsage
+			</CLASS>
+			<DISPLAYNAME>
+				Bit Usage
+			</DISPLAYNAME>
+			<MINVALUE>
+				0.0
+			</MINVALUE>
+			<MAXVALUE>
+				24.0
+			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
+			<UNITS>
+				hours
+			</UNITS>
+			<UNITABBREVIATION>
+				hrs
+			</UNITABBREVIATION>
+			<DATAGENALGORITHM>
+				STEPINC_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				PUMP_PRESSURE
 			</TYPE>
@@ -139,14 +342,23 @@
 			<MAXVALUE>
 				2000.0
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				pounds per square inch
 			</UNITS>
 			<UNITABBREVIATION>
 				PSI
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				RAND_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				CASING_PRESSURE
 			</TYPE>
@@ -162,14 +374,23 @@
 			<MAXVALUE>
 				100.0
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				pounds per square inch
 			</UNITS>
 			<UNITABBREVIATION>
 				PSI
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				RAND_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				FLOW_OUT
 			</TYPE>
@@ -185,14 +406,23 @@
 			<MAXVALUE>
 				100.0
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				percent
 			</UNITS>
 			<UNITABBREVIATION>
 				%
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				RAND_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				TORQUE_MAX
 			</TYPE>
@@ -208,14 +438,23 @@
 			<MAXVALUE>
 				100.0
 			</MAXVALUE>
+			<STEPVALUE>
+				1.0
+			</STEPVALUE>
 			<UNITS>
 				kilo-footpounds
 			</UNITS>
 			<UNITABBREVIATION>
 				kflb
 			</UNITABBREVIATION>
-		</SENSOR>
-		<SENSOR>
+			<DATAGENALGORITHM>
+				RAND_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
 			<TYPE>
 				MUD_PIT_VOLUME
 			</TYPE>
@@ -231,13 +470,54 @@
 			<MAXVALUE>
 				500.0
 			</MAXVALUE>
+			<STEPVALUE>
+				10.0
+			</STEPVALUE>
 			<UNITS>
 				barrels
 			</UNITS>
 			<UNITABBREVIATION>
 				bbl
 			</UNITABBREVIATION>
-		</SENSOR>
+			<DATAGENALGORITHM>
+				STEPDEC_MAX2MIN
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
+		<SENSOR_TYPE>
+			<TYPE>
+				TEST_SENSOR_ONE
+			</TYPE>
+			<CLASS>
+				TestSensorOne
+			</CLASS>
+			<DISPLAYNAME>
+				Test Sensor One
+			</DISPLAYNAME>
+			<MINVALUE>
+				0.0
+			</MINVALUE>
+			<MAXVALUE>
+				1000.0
+			</MAXVALUE>
+			<STEPVALUE>
+				5.0
+			</STEPVALUE>
+			<UNITS>
+				Units
+			</UNITS>
+			<UNITABBREVIATION>
+				uts
+			</UNITABBREVIATION>
+			<DATAGENALGORITHM>
+				RAND_MIN2MAX
+			</DATAGENALGORITHM>
+			<LINK_SENSOR>
+				NONE
+			</LINK_SENSOR>
+		</SENSOR_TYPE>
 	</SENSORS>
 </OILFIELDDATA>
 

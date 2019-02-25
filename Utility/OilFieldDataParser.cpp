@@ -2,7 +2,7 @@
 // OilFieldDataParser.cpp
 // Implementation file for the data parser.
 // Author: Dr. Rick Coleman
-// Date: December 2009
+// Date: January 2010
 //====================================================================
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -10,17 +10,52 @@
 #include <string.h>
 
 //-----------------------------------
-// Constructor
+// Private constructor
 //-----------------------------------
-OilFieldDataParser::OilFieldDataParser(const char *fileName)
+OilFieldDataParser::OilFieldDataParser()
 {
+
 	// Initialize everything
-	char line[128];
 	m_iNumWells = 0;
 	m_iNumSensors = 0;
 	m_iNextWellNumber = 0;
-	m_ipNextSensorNumber = NULL;
 	m_cpWellID = NULL;
+}
+
+//-----------------------------------
+// Destructor
+//-----------------------------------
+OilFieldDataParser::~OilFieldDataParser()
+{
+	// Destroy all the char arrays
+	for(int i=0; i<m_iNumWells; i++)
+	{
+		delete[] m_cpWellID[i];
+	}
+
+	// Now destroy the array of pointers
+	delete[] m_cpWellID;
+}
+
+//-----------------------------------
+// Get the singleton instance
+//-----------------------------------
+OilFieldDataParser *OilFieldDataParser::getInstance()
+{
+	static OilFieldDataParser *theInstance = NULL;
+	if(theInstance == NULL)
+	{
+		theInstance = new OilFieldDataParser();
+	}
+	return theInstance;
+}
+
+//-----------------------------------
+// Open, read, and init the data
+//-----------------------------------
+void OilFieldDataParser::initDataFile(const char *fileName)
+{
+	char line[128];
 	strcpy(m_sFileName, fileName);
 
 	// Open the data file for reading
@@ -35,7 +70,7 @@ OilFieldDataParser::OilFieldDataParser(const char *fileName)
 			{
 				m_iNumWells++;	// Count all wells
 			}
-			else if(strcmp(line, "<SENSOR>") == 0)
+			else if(strcmp(line, "<SENSOR_TYPE>") == 0)
 			{
 				m_iNumSensors++;	// Count all sensors
 			}
@@ -48,15 +83,6 @@ OilFieldDataParser::OilFieldDataParser(const char *fileName)
 		cout << "Failed to open file\n";
 		cout << "Program terminated.\n\n";
 		exit(0);
-	}
-
-	// Create and initialize the array of ints counting sensors for each well
-	m_ipNextSensorNumber = new int[m_iNumWells];
-	for(int i=0; i<m_iNumWells; i++)
-	{
-		m_ipNextSensorNumber[i] = 0;
-		// Note: the following is syntatically the same thing
-		// *(m_ipNextSensorNumber + i) = 0;
 	}
 
 	// Create the array of pointers to char arrays holding the IDs
@@ -105,21 +131,11 @@ OilFieldDataParser::OilFieldDataParser(const char *fileName)
 }
 
 //-----------------------------------
-// Destructor
+// Get the 0 terminated array of IDs
 //-----------------------------------
-OilFieldDataParser::~OilFieldDataParser()
+char **OilFieldDataParser::getWellIDs()
 {
-	// Destroy the arrtay of ints which was dynamically created
-	delete[] m_ipNextSensorNumber;
-
-	// Destroy all the char arrays
-	for(int i=0; i<m_iNumWells; i++)
-	{
-		delete[] m_cpWellID[i];
-	}
-
-	// Now destroy the array of pointers
-	delete[] m_cpWellID;
+	return m_cpWellID;
 }
 
 //-----------------------------------
@@ -135,13 +151,18 @@ int OilFieldDataParser::getWellCount()
 // Args:	*id - pointer to a character array to hold the well ID
 //			*operator - pointer to a character array to hold operator name
 //			*numSensors - pointer to an int to hold the number of sensors
-//							on this well.  For this sim all wells will have
-//							the same number.
+//							on this well.  
+//			***senTypes - pointer to pointer to an array of pointers to char 
+//				arrays holding sensor types.
 //--------------------------------------------------------------------------
-bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors)
+bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors, char ***senTypes)
 {
 	int wNum = 0;
 	char line[128];
+	*numSensors = 0; // Init the count
+	// Create an array of pointers for max number of sensors
+	*senTypes = new char*[m_iNumSensors];
+
 	// Reopen the file
 	inFile = new ifstream();
 	inFile->open(m_sFileName, fstream::in);
@@ -176,13 +197,20 @@ bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors)
 							else
 								return false; // Oops!
 						}
+						else if(strcmp(line, "<SENSOR>") == 0)
+						{
+							getNextLine(line, 127); // Read sensor type
+							// Create a char array for the next pointer to access
+							(*senTypes)[*numSensors] = new char[strlen(line) + 1];
+							// Copy the string into that array
+							strcpy((*senTypes)[*numSensors], line);
+							(*numSensors)++; // Increment the counter
+						}
 						else if(strcmp(line, "</WELL>") == 0)
 						{
 							m_iNextWellNumber++; // Increment for next call to this function
 							inFile->close();
 							delete inFile; // Delete the istream object not the file
-							// Set the number of sensors -  all have the same for now
-							*numSensors = m_iNumSensors;
 							return true; // Got it
 						}
 					} // end while
@@ -202,35 +230,35 @@ bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors)
 
 //----------------------------------------------------------------------------------
 // Get data on the next sensor
-// Args:	wellID - Pointer to char array holding this well ID-must be passed in
-//							by the caller
-//			type - Pointer to char array into which the Sensor type will be copied.
+// Args:	type - Pointer to char array into which the Sensor type will be copied.
 //			className - Pointer to char array into which the Sensor classification
 //							will be copied.
 //			displayName - Pointer to char array into which the name to display in
 //							outputs will be copied.
 //			min - Pointer to double into which the minimum reading for this sensor
 //							will be copied.
+//			minUdf - Pointer to bool which will be set to true if the minimum value
+//							is undefined.
 //			max - Pointer to double into which the maximum reading for this sensor
 //							will be copied.
+//			maxUdf - Pointer to bool which will be set to true if the maximum value
+//							is undefined.
+//			step - Pointer to double into which the increment step for this sensor's
+//							readings will be copied.
 //			units - Pointer to char array into which the name of the units this
 //							sensor is measuring will be copied.
 //			unitAbbrev - Pointer to char array into which the abbreviation for the
 //							units this sensor is measuring will be copied.
+//			dataGenAlg - Pointer to char array into which the name of the data
+//							generation algorithm for this sensor will be copied.
+//			linkSenType - Pointer to char array into which the name of the link-to
+//							sensor will be copied if appropriate.
 //----------------------------------------------------------------------------------
-bool OilFieldDataParser::getSensorData(char *wellID, char *type, char *className, 
-		char *displayName, double *min, double *max, char *units, char *unitAbbrev)
+bool OilFieldDataParser::getSensorData(char *type, char *className, 
+		char *displayName, double *min, bool *minUdf, double *max, 
+		bool *maxUdf, double *step, char *units, char *unitAbbrev, 
+		char *dataGenAlg, char *linkSenType)
 {
-	// Note: In this simulation all wells have the same number of sensors
-	// Find the index of this well
-	int wellIdx = 0;
-	for(int i=0; i<m_iNumWells; i++)
-	{
-		if(strcmp(m_cpWellID[i], wellID) == 0)
-			wellIdx = i;
-	}
-
-	int sNum = 0;
 	char line[128];
 
 	// Reopen the file
@@ -238,105 +266,152 @@ bool OilFieldDataParser::getSensorData(char *wellID, char *type, char *className
 	inFile->open(m_sFileName, fstream::in);
 	if(inFile->is_open())
 	{
-		// Read to the the current sensor count
+		// Search for the start of the sensors
+		bool found = false;
+		do
+		{
+			getNextLine(line, 127);
+			if(strcmp(line, "<SENSORS>") == 0)
+				found = true;
+		}
+		while(!found);
+
+		// Find a sensor definition of this type
 		while(getNextLine(line, 127))
 		{
-			if(strcmp(line, "<SENSOR>") == 0) // Got one
+			if(strcmp(line, type) == 0) // found it
 			{
-				if(sNum == m_ipNextSensorNumber[wellIdx])
+				// Get data on this one
+				while(getNextLine(line, 127))
 				{
-					// Get data on this one
-					while(getNextLine(line, 127))
+					if(strcmp(line, "<CLASS>") == 0)
 					{
-						// Get the sensor type
-						if(strcmp(line, "<TYPE>") == 0)
+						if(getNextLine(line, 127))
 						{
-							if(getNextLine(line, 127))
+							strcpy(className, line); 
+						}
+						else
+							return false; // Oops!
+					}
+					// Get the sensor display name
+					else if(strcmp(line, "<DISPLAYNAME>") == 0)
+					{
+						if(getNextLine(line, 127))
+						{
+							strcpy(displayName, line); 
+						}
+						else
+							return false; // Oops!
+					}
+					// Get the sensor minimum value
+					else if(strcmp(line, "<MINVALUE>") == 0)
+					{
+						if(getNextLine(line, 127))
+						{
+							if(strcmp(line, "UNDEFINED") == 0)
 							{
-								strcpy(type, line); 
+								*min = 0.0;
+								*minUdf = true;
 							}
 							else
-								return false; // Oops!
-						}
-						// Get the sensor class name
-						else if(strcmp(line, "<CLASS>") == 0)
-						{
-							if(getNextLine(line, 127))
-							{
-								strcpy(className, line); 
-							}
-							else
-								return false; // Oops!
-						}
-						// Get the sensor display name
-						else if(strcmp(line, "<DISPLAYNAME>") == 0)
-						{
-							if(getNextLine(line, 127))
-							{
-								strcpy(displayName, line); 
-							}
-							else
-								return false; // Oops!
-						}
-						// Get the sensor minimum value
-						else if(strcmp(line, "<MINVALUE>") == 0)
-						{
-							if(getNextLine(line, 127))
 							{
 								*min = atof(line); 
+								*minUdf = false;
+							}
+						}
+						else
+							return false; // Oops!
+					}
+					// Get the sensor minimum value
+					else if(strcmp(line, "<MAXVALUE>") == 0)
+					{
+						if(getNextLine(line, 127))
+						{
+							if(strcmp(line, "UNDEFINED") == 0)
+							{
+								*max = 0.0;
+								*maxUdf = true;
 							}
 							else
-								return false; // Oops!
-						}
-						// Get the sensor minimum value
-						else if(strcmp(line, "<MAXVALUE>") == 0)
-						{
-							if(getNextLine(line, 127))
 							{
 								*max = atof(line); 
+								*maxUdf = false;
 							}
-							else
-								return false; // Oops!
 						}
-						// Get the sensor units
-						else if(strcmp(line, "<UNITS>") == 0)
+						else
+							return false; // Oops!
+					}
+					// Get the sensor step value
+					else if(strcmp(line, "<STEPVALUE>") == 0)
+					{
+						if(getNextLine(line, 127))
 						{
-							if(getNextLine(line, 127))
+							if(strcmp(line, "UNDEFINED") == 0)
 							{
-								strcpy(units, line); 
+								*step = 1.0;
 							}
 							else
-								return false; // Oops!
-						}
-						// Get the sensor units abbreviation
-						else if(strcmp(line, "<UNITABBREVIATION>") == 0)
-						{
-							if(getNextLine(line, 127))
 							{
-								strcpy(unitAbbrev, line); 
+								*step = atof(line); 
 							}
-							else
-								return false; // Oops!
 						}
-						else if(strcmp(line, "</SENSOR>") == 0)
+						else
+							return false; // Oops!
+					}
+					// Get the sensor units
+					else if(strcmp(line, "<UNITS>") == 0)
+					{
+						if(getNextLine(line, 127))
 						{
-							m_ipNextSensorNumber[wellIdx]++; // Increment for next call to this function
-							inFile->close();
-							delete inFile; // Delete the istream object not the file
-							return true; // Got one
+							strcpy(units, line); 
 						}
-					} // end while
-				} // end if(sNum == nextSensor)
-				else
-				{
-					sNum++; // Check the next one
-				}
-			}
+						else
+							return false; // Oops!
+					}
+					// Get the sensor units abbreviation
+					else if(strcmp(line, "<UNITABBREVIATION>") == 0)
+					{
+						if(getNextLine(line, 127))
+						{
+							strcpy(unitAbbrev, line); 
+						}
+						else
+							return false; // Oops!
+					}
+					// Get the data generation algorithm type
+					else if(strcmp(line, "<DATAGENALGORITHM>") == 0)
+					{
+						if(getNextLine(line, 127))
+						{
+							strcpy(dataGenAlg, line); 
+						}
+						else
+							return false; // Oops!
+					}
+					// Get the link sensor type
+					else if(strcmp(line, "<LINK_SENSOR>") == 0)
+					{
+						if(getNextLine(line, 127))
+						{
+							strcpy(linkSenType, line); 
+						}
+						else
+							return false; // Oops!
+					}
+					else if(strcmp(line, "</SENSOR_TYPE>") == 0)
+					{
+						inFile->close();	// We're done
+						delete inFile; // Delete the istream object not the file
+						return true; // Got one
+					}
+				} // end while
+			} // end if we found the sensor type
 		}
+		// Done looking so must not have found it
 		inFile->close();
 		delete inFile; // Delete the istream object not the file
 	} // end if file open
-	return false; // If we get here we have got all the sensors or failed to open file
+	return false; // If we get here we didn't find the sensor type or failed to open file
 }
 
 //------------------------------------------------
