@@ -3,4 +3,4 @@ project(Wells)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Wells main.cpp Sensor/Sensor.cpp Sensor/Sensor.h Simulation/Simulation.cpp Simulation/Simulation.h Well/Well.cpp Well/Well.h Display/Display.cpp Display/Display.h Well/WellMsg.cpp Well/WellMsg.h Utility/OilFieldDataParser.h Utility/OilFieldDataParser.cpp Sensor/SensorFactory.cpp Sensor/SensorFactory.h Well/WellFactory.cpp Well/WellFactory.h)
+add_executable(Wells main.cpp Sensor/Sensor.cpp Sensor/Sensor.h Simulation/Simulation.cpp Simulation/Simulation.h Well/Well.cpp Well/Well.h Display/Display.cpp Display/Display.h Well/WellMsg.cpp Well/WellMsg.h Utility/OilFieldDataParser.h Utility/OilFieldDataParser.cpp Sensor/SensorFactory.cpp Sensor/SensorFactory.h Well/WellFactory.cpp Well/WellFactory.h Sensor/DataGen.cpp Sensor/DataGen.h)
