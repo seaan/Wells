@@ -17,20 +17,8 @@
  * @param min maximum sensor value
  * @param max minimum sensor value
  */
-Sensor::Sensor(SensorData sensor_data) {
-    this->_sensor_data._type = new char();
-    this->_sensor_data._class_name = new char();
-    this->_sensor_data._display_name = new char();
-    this->_sensor_data._units = new char();
-    this->_sensor_data._abbrev = new char(); // allocate space for all of our strings
-
-    strcpy(this->_sensor_data._type, sensor_data._type);
-    strcpy(this->_sensor_data._class_name, sensor_data._class_name);
-    strcpy(this->_sensor_data._display_name, sensor_data._display_name);
-    strcpy(this->_sensor_data._units, sensor_data._units);
-    strcpy(this->_sensor_data._abbrev, sensor_data._abbrev); // copy the input into the member variables
-    this->_sensor_data._min = sensor_data._min;
-    this->_sensor_data._max = sensor_data._max;
+Sensor::Sensor(SensorData *sensor_data) {
+    this->_sensor_data = sensor_data;
 
     this->_value = 0; // starts out as 0, will be updated in update()
     this->_enabled = false; // starts out false, user will enable
@@ -40,14 +28,14 @@ Sensor::Sensor(SensorData sensor_data) {
  * Destructor for sensor.
  */
 Sensor::~Sensor() {
-    _sensor_data;
+    delete _sensor_data;
 }
 
 /**
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    this->_value = this->_sensor_data._min + (rand() % (int) (this->_sensor_data._max - this->_sensor_data._min));
+    this->_value = this->_sensor_data->_min + (rand() % (int) (this->_sensor_data->_max - this->_sensor_data->_min));
 }
 
 /**
@@ -71,7 +59,7 @@ bool Sensor::getEnabled() {
  * @return sensor display name
  */
 char *Sensor::getDisplayName() {
-    return this->_sensor_data._display_name;
+    return this->_sensor_data->_display_name;
 }
 
 /**
@@ -79,7 +67,7 @@ char *Sensor::getDisplayName() {
  * @return sensor unit abbreviation
  */
 char *Sensor::getAbbrev() {
-    return this->_sensor_data._abbrev;
+    return this->_sensor_data->_abbrev;
 }
 
 /**
@@ -87,7 +75,7 @@ char *Sensor::getAbbrev() {
  * @return sensor type
  */
 char *Sensor::getType() {
-    return this->_sensor_data._type;
+    return this->_sensor_data->_type;
 }
 
 /**

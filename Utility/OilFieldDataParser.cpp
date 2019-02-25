@@ -153,7 +153,7 @@ int OilFieldDataParser::getWellCount()
 //			*numSensors - pointer to an int to hold the number of sensors
 //							on this well.  
 //			***senTypes - pointer to pointer to an array of pointers to char 
-//				arrays holding sensor types.
+//				arrays holding sensor _types.
 //--------------------------------------------------------------------------
 bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors, char ***senTypes)
 {
@@ -243,7 +243,7 @@ bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors, char 
 //							will be copied.
 //			maxUdf - Pointer to bool which will be set to true if the maximum value
 //							is undefined.
-//			step - Pointer to double into which the increment step for this sensor's
+//			_step - Pointer to double into which the increment _step for this sensor's
 //							readings will be copied.
 //			units - Pointer to char array into which the name of the units this
 //							sensor is measuring will be copied.
@@ -251,7 +251,7 @@ bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors, char 
 //							units this sensor is measuring will be copied.
 //			dataGenAlg - Pointer to char array into which the name of the data
 //							generation algorithm for this sensor will be copied.
-//			linkSenType - Pointer to char array into which the name of the link-to
+//			linkSenType - Pointer to char array into which the name of the _link-to
 //							sensor will be copied if appropriate.
 //----------------------------------------------------------------------------------
 bool OilFieldDataParser::getSensorData(char *type, char *className, 
@@ -341,7 +341,7 @@ bool OilFieldDataParser::getSensorData(char *type, char *className,
 						else
 							return false; // Oops!
 					}
-					// Get the sensor step value
+					// Get the sensor _step value
 					else if(strcmp(line, "<STEPVALUE>") == 0)
 					{
 						if(getNextLine(line, 127))
@@ -388,7 +388,7 @@ bool OilFieldDataParser::getSensorData(char *type, char *className,
 						else
 							return false; // Oops!
 					}
-					// Get the link sensor type
+					// Get the _link sensor type
 					else if(strcmp(line, "<LINK_SENSOR>") == 0)
 					{
 						if(getNextLine(line, 127))

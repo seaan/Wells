@@ -31,7 +31,7 @@ public:
 
     std::vector<Sensor *> getSensors();
 
-    void addSensors(OilFieldDataParser *data);
+    void addSensor(Sensor *sensor);
 
     std::vector<char *> getSensorTypes();
 
@@ -43,10 +43,7 @@ protected:
     char *_id;
     char *_company;
     int _num_sensors;
-    char ***types;
-
-private:
-    SensorFactory *sensor_factory;
+    char ***_types;
 };
 
 

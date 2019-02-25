@@ -17,7 +17,7 @@ class OilFieldDataParser
 	private:
 		ifstream	*inFile;				// Oilfield data definition file
 		int			m_iNumWells;			// Number of wells in the data file
-		int			m_iNumSensors;			// Number of sensor types
+		int			m_iNumSensors;			// Number of sensor _types
 		int			m_iNextWellNumber;		// Index of the next well to read
 		char		**m_cpWellID;			// Pointer to array of pointers to
 											//  char arrays holding well IDs

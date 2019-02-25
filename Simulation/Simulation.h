@@ -32,7 +32,7 @@ private:
     Display *_display;
     OilFieldDataParser *_data;
 
-    WellFactory *well_factory;
+    WellFactory *_well_factory;
 };
 
 

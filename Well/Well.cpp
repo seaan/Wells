@@ -3,7 +3,6 @@
 //
 #include <cstring>
 #include "Well.h"
-#include "../Utility/OilFieldDataParser.h"
 
 /**
  * Constructs a Well object, sets well ID, company, and number of sensors.
@@ -14,13 +13,12 @@
 Well::Well(char *id, char *company, int num_sensors) {
     this->_id = new char();
     this->_company = new char();
+
     strcpy(_id, id);
     strcpy(_company, company);
     this->_num_sensors = num_sensors;
 
     _enabled = false;
-
-    sensor_factory = SensorFactory::getInstance();
 }
 
 /**
@@ -84,22 +82,8 @@ char *Well::getCompany() {
  * Adds the given Sensor object to _sensors.
  * @param sensor Sensor object to add
  */
-void Well::addSensors(OilFieldDataParser *data) {
-    char *class_name = new char();
-    char *display_name = new char();
-    char *units = new char();
-    char *abbrev = new char();
-    char *gen_alg = new char();
-    char *link = new char();
-    double min, max, step;
-    bool min_undef, max_undef;
-
-    for(int i = 0; i < _num_sensors; i++) {
-        data->getSensorData((*types)[i], class_name, display_name, &min, &min_undef, &max, &max_undef, &step, units, abbrev, gen_alg, link);
-        sensor_factory->defineType((*types)[i], class_name, display_name, &min, &min_undef, &max, &max_undef, &step, units, abbrev, gen_alg, link); // add this type to the sensor factory
-
-        this->_sensors.push_back(sensor_factory->createSensor((*types)[i])); // grab a sensor of the type we need and put it into the vector of sensors
-    }
+void Well::addSensor(Sensor *sensor) {
+    this->_sensors.push_back(sensor);
 }
 
 /**
@@ -124,8 +108,8 @@ std::vector<Sensor *> Well::getSensors() {
  */
 std::vector<char *> Well::getSensorTypes() {
     std::vector<char *> result;
-    for (int i = 0; i < _num_sensors; i++) {
-        result.push_back((*types)[i]); // dereference pointer, grab each individual char* TODO test
+    for (Sensor *sensor: _sensors) {
+        result.push_back(sensor->getType());
     }
     return result;
 }

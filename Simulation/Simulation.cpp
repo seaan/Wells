@@ -23,7 +23,7 @@ void Simulation::run() {
     double target_time;
     bool done = false;  // while loop flag
 
-    well_factory = WellFactory::getInstance();
+    _well_factory = WellFactory::getInstance();
 
     srand((unsigned int) (time(NULL))); // seed srand
     readFile("../OilFieldData.xml");
@@ -85,14 +85,7 @@ void Simulation::readFile(const char *fileName) {
     _data->initDataFile(fileName);
 
     for (int i = 0; i < _data->getWellCount(); i++) { // for every well that we need to initialize
-        char *id = new char();
-        char *opr = new char();
-        int num_sensors;
-        char ***types;
-
-        _data->getWellData(id, opr, &num_sensors, types); // use getWellData to populate our variables
-        Well *well = new Well(id, opr, num_sensors); // create a new Well object using the variables
-        _wells.push_back(well); // put the new object into the Well vector
+        _wells.push_back(_well_factory->createWell(_data));
     }
 }
 
@@ -158,7 +151,7 @@ void Simulation::editSensor() {
             cout << "Please enter the sensor type from the following:\n";
 
             for (char *well_type: well->getSensorTypes()) {
-                cout << well_type << endl; // print out all the sensor types that the well contains
+                cout << well_type << endl; // print out all the sensor _types that the well contains
             }
 
             cin >> type;

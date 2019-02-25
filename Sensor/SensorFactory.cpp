@@ -9,18 +9,19 @@ SensorFactory::~SensorFactory() {
 }
 
 SensorFactory *SensorFactory::getInstance() {
-    static SensorFactory *instance = NULL;
-    if(instance == NULL)
+    static SensorFactory *instance = nullptr;
+    if(instance == nullptr)
         instance = new SensorFactory();
     return instance;
 }
 
-void SensorFactory::defineType(SensorData sensor_data) {
-    types.insert({sensor_data._type, sensor_data});
+void SensorFactory::defineType(SensorData *sensor_data) {
+    std::string key(sensor_data->_type); // convert to string
+    _types.insert({key, sensor_data});
 }
 
 Sensor *SensorFactory::createSensor(char *type) {
-    return new Sensor(types[type]);
+    return new Sensor(_types[type]);
 }
 
 SensorFactory::SensorFactory() {
