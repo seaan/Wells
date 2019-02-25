@@ -22,19 +22,20 @@ Sensor::Sensor(char *type, char *class_name, char *display_name, char *units, ch
     this->_class_name = new char();
     this->_display_name = new char();
     this->_units = new char();
-    this->_abbrev = new char();
+    this->_abbrev = new char(); // allocate space for all of our strings
 
     strcpy(this->_type, type);
     strcpy(this->_class_name, class_name);
     strcpy(this->_display_name, display_name);
     strcpy(this->_units, units);
-    strcpy(this->_abbrev, abbrev);
+    strcpy(this->_abbrev, abbrev); // copy the input into the member variables
     this->_min = min;
     this->_max = max;
-    this->_value = 0;
-    this->_enabled = false;
 
-    if (this->_max == 0) this->_max = 10000;
+    this->_value = 0; // starts out as 0, will be updated in update()
+    this->_enabled = false; // starts out false, user will enable
+
+    if (this->_max == 0) this->_max = 10000; // need a real max so we can generate a number
 }
 
 /**
