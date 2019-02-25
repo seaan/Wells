@@ -5,10 +5,15 @@
 #ifndef WELLS_SENSOR_H
 #define WELLS_SENSOR_H
 
+struct SensorData {
+    char *_type, *_class_name, *_display_name, *_units, *_abbrev, *gen_alg, *link;
+    double _min, _max, step;
+    bool min_undef, max_undef;
+};
 
 class Sensor {
 public:
-    Sensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max);
+    Sensor(SensorData sensor_data);
 
     ~Sensor();
 
@@ -27,9 +32,9 @@ public:
     double getValue();
 
 private:
-    char *_type, *_class_name, *_display_name, *_units, *_abbrev;
-    double _min, _max, _value;
+    SensorData _sensor_data;
 
+    double _value;
     bool _enabled;
 };
 

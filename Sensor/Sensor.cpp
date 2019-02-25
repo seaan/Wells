@@ -17,43 +17,37 @@
  * @param min maximum sensor value
  * @param max minimum sensor value
  */
-Sensor::Sensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max) {
-    this->_type = new char();
-    this->_class_name = new char();
-    this->_display_name = new char();
-    this->_units = new char();
-    this->_abbrev = new char(); // allocate space for all of our strings
+Sensor::Sensor(SensorData sensor_data) {
+    this->_sensor_data._type = new char();
+    this->_sensor_data._class_name = new char();
+    this->_sensor_data._display_name = new char();
+    this->_sensor_data._units = new char();
+    this->_sensor_data._abbrev = new char(); // allocate space for all of our strings
 
-    strcpy(this->_type, type);
-    strcpy(this->_class_name, class_name);
-    strcpy(this->_display_name, display_name);
-    strcpy(this->_units, units);
-    strcpy(this->_abbrev, abbrev); // copy the input into the member variables
-    this->_min = min;
-    this->_max = max;
+    strcpy(this->_sensor_data._type, sensor_data._type);
+    strcpy(this->_sensor_data._class_name, sensor_data._class_name);
+    strcpy(this->_sensor_data._display_name, sensor_data._display_name);
+    strcpy(this->_sensor_data._units, sensor_data._units);
+    strcpy(this->_sensor_data._abbrev, sensor_data._abbrev); // copy the input into the member variables
+    this->_sensor_data._min = sensor_data._min;
+    this->_sensor_data._max = sensor_data._max;
 
     this->_value = 0; // starts out as 0, will be updated in update()
     this->_enabled = false; // starts out false, user will enable
-
-    if (this->_max == 0) this->_max = 10000; // need a real max so we can generate a number
 }
 
 /**
  * Destructor for sensor.
  */
 Sensor::~Sensor() {
-    delete _type;
-    delete _class_name;
-    delete _display_name;
-    delete _units;
-    delete _abbrev;
+    _sensor_data;
 }
 
 /**
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    _value = _min + (rand() % (int) (_max - _min));
+    this->_value = this->_sensor_data._min + (rand() % (int) (this->_sensor_data._max - this->_sensor_data._min));
 }
 
 /**
@@ -77,7 +71,7 @@ bool Sensor::getEnabled() {
  * @return sensor display name
  */
 char *Sensor::getDisplayName() {
-    return this->_display_name;
+    return this->_sensor_data._display_name;
 }
 
 /**
@@ -85,7 +79,7 @@ char *Sensor::getDisplayName() {
  * @return sensor unit abbreviation
  */
 char *Sensor::getAbbrev() {
-    return this->_abbrev;
+    return this->_sensor_data._abbrev;
 }
 
 /**
@@ -93,7 +87,7 @@ char *Sensor::getAbbrev() {
  * @return sensor type
  */
 char *Sensor::getType() {
-    return this->_type;
+    return this->_sensor_data._type;
 }
 
 /**

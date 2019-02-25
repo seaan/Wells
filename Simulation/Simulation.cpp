@@ -23,6 +23,8 @@ void Simulation::run() {
     double target_time;
     bool done = false;  // while loop flag
 
+    well_factory = WellFactory::getInstance();
+
     srand((unsigned int) (time(NULL))); // seed srand
     readFile("../OilFieldData.xml");
 
@@ -79,32 +81,18 @@ void Simulation::log() {
  * @param fileName Name of the file to parse.
  */
 void Simulation::readFile(const char *fileName) {
-    _data = new OilFieldDataParser("../OilFieldData.xml");
+    _data = OilFieldDataParser::getInstance();
+    _data->initDataFile(fileName);
 
     for (int i = 0; i < _data->getWellCount(); i++) { // for every well that we need to initialize
         char *id = new char();
         char *opr = new char();
         int num_sensors;
-        _data->getWellData(id, opr, &num_sensors); // use getWellData to populate our variables
+        char ***types;
+
+        _data->getWellData(id, opr, &num_sensors, types); // use getWellData to populate our variables
         Well *well = new Well(id, opr, num_sensors); // create a new Well object using the variables
         _wells.push_back(well); // put the new object into the Well vector
-    }
-
-    for (Well *well: _wells) { // for each well in the vector of wells
-        char *type = new char(); // sensor variables needed for initialization
-        char *class_name = new char();
-        char *display_name = new char();
-        char *units = new char();
-        char *abbrev = new char();
-        double min, max;
-
-        for (int i = 0; i < well->getNumSensors(); i++) {
-            // grab the sensor variables and create a new sensor using them
-            _data->getSensorData(well->getid(), type, class_name, display_name, &min, &max, units, abbrev);
-            Sensor *sensor = new Sensor(type, class_name, display_name, units, abbrev, min, max);
-
-            well->addSensor(sensor); // add the sensor to the well's vector of sensors
-        }
     }
 }
 
@@ -169,7 +157,7 @@ void Simulation::editSensor() {
         if (strcmp(well->getid(), id) == 0) { // find the well we're looking for
             cout << "Please enter the sensor type from the following:\n";
 
-            for (char *well_type: well->findSensorTypes()) {
+            for (char *well_type: well->getSensorTypes()) {
                 cout << well_type << endl; // print out all the sensor types that the well contains
             }
 

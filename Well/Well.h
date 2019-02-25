@@ -6,6 +6,8 @@
 #define WELLS_WELL_H
 
 #include "../Sensor/Sensor.h"
+#include "../Utility/OilFieldDataParser.h"
+#include "../Sensor/SensorFactory.h"
 #include <string>
 #include <vector>
 
@@ -29,9 +31,9 @@ public:
 
     std::vector<Sensor *> getSensors();
 
-    void addSensor(Sensor *sensor);
+    void addSensors(OilFieldDataParser *data);
 
-    std::vector<char *> findSensorTypes();
+    std::vector<char *> getSensorTypes();
 
 protected:
     std::vector<Sensor *> _sensors;
@@ -41,6 +43,10 @@ protected:
     char *_id;
     char *_company;
     int _num_sensors;
+    char ***types;
+
+private:
+    SensorFactory *sensor_factory;
 };
 
 

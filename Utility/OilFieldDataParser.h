@@ -34,7 +34,7 @@ class OilFieldDataParser
 		char **getWellIDs();				// Get the NULL terminated array of IDs
 		bool getWellData(char *id, char *opr, 
 			int *numSensors, char ***senTypes);
-		bool OilFieldDataParser::getSensorData(char *type, 
+		bool getSensorData(char *type,
 			char *className, char *displayName, double *min, bool *minUdf, 
 			double *max, bool *maxUdf, double *step, char *units, char *unitAbbrev, 
 			char *dataGenAlg, char *linkSenType);

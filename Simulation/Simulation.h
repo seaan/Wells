@@ -8,6 +8,8 @@
 #include "../Well/Well.h"
 #include "../Display/Display.h"
 #include "../Utility/OilFieldDataParser.h"
+#include "../Sensor/SensorFactory.h"
+#include "../Well/WellFactory.h"
 
 class Simulation {
 public:
@@ -29,6 +31,8 @@ private:
     std::vector<Well *> _wells;
     Display *_display;
     OilFieldDataParser *_data;
+
+    WellFactory *well_factory;
 };
 
 
