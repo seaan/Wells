@@ -35,28 +35,28 @@ SensorData::SensorData(char *type, char *class_name, char *display_name, char *u
     strcpy(this->_class_name, class_name);
     strcpy(this->_display_name, display_name);
     strcpy(this->_units, units);
-    strcpy(this->_abbrev, abbrev);
-    strcpy(this->_link, link); // copy the input into the member variables
+    strcpy(this->_abbrev, abbrev); // copy the input into the member variables
 
     this->_min = min;
     this->_max = max;
     this->_step = step;
     this->_min_undef = min_undef;
     this->_max_undef = max_undef;
+    this->_link = link;
 
-    if (strcmp(gen_alg, "RAND_MIN2MAX")) {
+    if (strcmp(gen_alg, "RAND_MIN2MAX") == 0) {
         _gen = new RandGen();
     }
-    if (strcmp(gen_alg, "STEPINC_MIN2MAX")) {
-        _gen = new StepIncGen(max);
+    if (strcmp(gen_alg, "STEPINC_MIN2MAX") == 0) {
+        _gen = new StepIncGen(min);
     }
-    if (strcmp(gen_alg, "STEPDEC_MIN2MAX")) {
-        _gen = new StepDecGen(min);
+    if (strcmp(gen_alg, "STEPDEC_MAX2MIN") == 0) {
+        _gen = new StepDecGen(max);
     }
-    if (strcmp(gen_alg, "FOLLOWLINK_IFGREATER")) {
+    if (strcmp(gen_alg, "FOLLOWLINK_IFGREATER") == 0) {
         _gen = new FollowGreaterGen();
     }
-    if (strcmp(gen_alg, "FOLLOWLINK_IFCHANGED")) {
+    if (strcmp(gen_alg, "FOLLOWLINK_IFCHANGED") == 0) {
         _gen = new FollowChangedGen();
     }
 }
@@ -83,7 +83,7 @@ Sensor::~Sensor() {
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    this->_value = this->_sensor_data->_gen->generate(0, 0, 0);
+    this->_value = this->_sensor_data->_gen->generate(_sensor_data->_min, _sensor_data->_max, _sensor_data->_step);
 }
 
 /**

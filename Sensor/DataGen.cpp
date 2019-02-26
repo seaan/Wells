@@ -32,7 +32,7 @@ double RandGen::generate(double min, double max, double step) {
  * @param min
  */
 StepIncGen::StepIncGen(double min) {
-    count = min;
+    this->count = min;
 }
 
 /**
@@ -43,9 +43,9 @@ StepIncGen::StepIncGen(double min) {
  * @return
  */
 double StepIncGen::generate(double min, double max, double step) {
-    if (count < max)
-        count += (rand() % (int) (step - count));
-    return count;
+    if (this->count < max)
+        this->count += (rand() % (int) (step+1));
+    return this->count;
 }
 
 /**
@@ -53,7 +53,7 @@ double StepIncGen::generate(double min, double max, double step) {
  * @param max
  */
 StepDecGen::StepDecGen(double max) {
-    count = max;
+    this->count = max;
 }
 
 /**
@@ -64,9 +64,9 @@ StepDecGen::StepDecGen(double max) {
  * @return
  */
 double StepDecGen::generate(double min, double max, double step) {
-    if (count > min)
-        count -= (rand() % (int) (count - step));
-    return count;
+    if (this->count > min)
+        this->count -= (rand() % (int) (step+1));
+    return this->count;
 }
 
 /**

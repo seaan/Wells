@@ -34,19 +34,19 @@ void Simulation::run() {
 
     while (!done)     // Start an eternal loop
     {
-        // check for user input
-        char input;
-        input = getchar();
-        if (input == 'w')
-            editWell(); // 'w' triggers well list editing
-        if (input == 's')
-            editSensor(); // 's' triggers sensor list editing
+        // check for user input TODO re-enable
+//        char input;
+//        input = getchar();
+//        if (input == 'w')
+//            editWell(); // 'w' triggers well list editing
+//        if (input == 's')
+//            editSensor(); // 's' triggers sensor list editing
 
         ftime(&struct_time);    // Get the current struct_time
         current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
         // Check for 5 second interval to print status to screen
         if (current_time >= target_time) {
-            target_time += 5.0; // Set struct_time for next 5 second interval
+            target_time += 1.0; // Set struct_time for next 5 second interval TODO change to 5
             update(); // update all wells before log
             log(); // log all wells status
             cout << "- - - - - - - - - - - - - - - - - -\n";
