@@ -10,13 +10,13 @@
  * @param well Well object to initialize member variables with
  */
 WellMsg::WellMsg(Well *well) {
-    this->_well_info = new char();
+    this->_well_info = new char[64];
 
     std::sprintf(_well_info, "%s: %s", well->getCompany(), well->getid());
 
     for (Sensor *sensor: well->getSensors()) {
         if (sensor->getEnabled()) {
-            char *info = new char();
+            char *info = new char[32];
             std::sprintf(info, "%s: %.2f %s", sensor->getDisplayName(), sensor->getValue(), sensor->getAbbrev());
             this->_sensor_info.push_back(info);
         }

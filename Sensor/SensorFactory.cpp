@@ -3,6 +3,7 @@
 //
 
 #include "SensorFactory.h"
+#include "SensorConfig.h"
 
 SensorFactory::~SensorFactory() {
 
@@ -15,7 +16,7 @@ SensorFactory *SensorFactory::getInstance() {
     return instance;
 }
 
-void SensorFactory::defineType(SensorData *sensor_data) {
+void SensorFactory::defineType(SensorConfig *sensor_data) {
     std::string key(sensor_data->_type); // convert to string
     _types.insert({key, sensor_data});
 }

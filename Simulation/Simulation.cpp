@@ -26,21 +26,38 @@ void Simulation::run() {
     _well_factory = WellFactory::getInstance();
 
     srand((unsigned int) (time(NULL))); // seed srand
+
+    // TODO re-enable
+//    char *file_name = new char[128];
+//    cout << "Please enter a file name: \n";
+//    cin >> file_name;
+//    readFile(file_name);
     readFile("../OilFieldData.xml");
 
     ftime(&struct_time);    // Get start struct_time
     current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
     target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
+    cout << "Controls: Add/Remove Well [W], Add/Remove Sensor [S], Quit [Q] \n";
     while (!done)     // Start an eternal loop
     {
         // check for user input TODO re-enable
-//        char input;
-//        input = getchar();
-//        if (input == 'w')
-//            editWell(); // 'w' triggers well list editing
-//        if (input == 's')
-//            editSensor(); // 's' triggers sensor list editing
+//        if(_kbhit()) {
+//            switch(_getch()) {
+//                case 'w':
+//                    editWell();
+//                    break;
+//                case 's':
+//                    editSensor();
+//                    break;
+//                case 'q':
+//                    return;
+//                    break;
+//                default:
+//                    cout << "Input unrecognized.\n";
+//                    break;
+//            }
+//        }
 
         ftime(&struct_time);    // Get the current struct_time
         current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
@@ -93,8 +110,8 @@ void Simulation::readFile(const char *fileName) {
  * Prompts and takes input from user to enable or disable status monitoring for a well.
  */
 void Simulation::editWell() {
-    char *addrem = new char(); // add or remove
-    char *id = new char(); // well id to search for
+    char *addrem = new char[32]; // add or remove
+    char *id = new char[32]; // well id to search for
     bool enabled = false;
 
     cout << "Well ID list: \n";
@@ -126,9 +143,9 @@ void Simulation::editWell() {
  * Prompts and takes input from user to enable or disable status monitoring for a sensor.
  */
 void Simulation::editSensor() {
-    char *addrem = new char();
-    char *id = new char();
-    char *type = new char();
+    char *addrem = new char[32];
+    char *id = new char[32];
+    char *type = new char[32];
     bool enabled = false;
 
     cout << "\nWould you like to add or remove a sensor from the display? [add/remove]: ";

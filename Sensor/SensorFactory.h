@@ -15,14 +15,14 @@ public:
 
     static SensorFactory *getInstance();
 
-    void defineType(SensorData *);
+    void defineType(SensorConfig *);
 
     Sensor *createSensor(char *type);
 
 private:
     SensorFactory();
 
-    std::map<std::string, SensorData *> _types;
+    std::map<std::string, SensorConfig *> _types;
 };
 
 

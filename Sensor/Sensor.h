@@ -7,20 +7,11 @@
 
 #include <cstring>
 #include "DataGen.h"
-
-struct SensorData {
-    char *_type, *_class_name, *_display_name, *_units, *_abbrev, *_link;
-    double _min, _max, _step;
-    bool _min_undef, _max_undef;
-    DataGen *_gen;
-
-    SensorData(char *type, char *class_name, char *display_name, char *units, char *abbrev, char *gen_alg, char *link,
-               double min, double max, double step, bool min_undef, bool max_undef);
-};
+#include "SensorConfig.h"
 
 class Sensor {
 public:
-    Sensor(SensorData *sensor_data);
+    Sensor(SensorConfig *sensor_data);
 
     ~Sensor();
 
@@ -39,7 +30,7 @@ public:
     double getValue();
 
 private:
-    SensorData *_sensor_data;
+    SensorConfig *_sensor_data;
 
     double _value;
     bool _enabled;

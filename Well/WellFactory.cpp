@@ -21,18 +21,18 @@ WellFactory::WellFactory() {
 
 Well *WellFactory::createWell(OilFieldDataParser *data) {
     // Well variables
-    char *id = new char();
-    char *opr = new char();
+    char *id = new char[32];
+    char *opr = new char[32];
     int num_sensors;
     char ***types = new char**;
 
     // Sensor variables
-    char *class_name = new char();
-    char *display_name = new char();
-    char *units = new char();
-    char *abbrev = new char();
-    char *gen_alg = new char();
-    char *link = new char();
+    char *class_name = new char[32];
+    char *display_name = new char[32];
+    char *units = new char[32];
+    char *abbrev = new char[32];
+    char *gen_alg = new char[32];
+    char *link = new char[32];
     double min, max, step;
     bool min_undef, max_undef;
 
@@ -45,7 +45,7 @@ Well *WellFactory::createWell(OilFieldDataParser *data) {
         data->getSensorData((*types)[i], class_name, display_name, &min, &min_undef, &max, &max_undef, &step, units,
                             abbrev, gen_alg, link);
         _sensor_factory->defineType(
-                new SensorData((*types)[i], class_name, display_name, units, abbrev, gen_alg, link, min, max, step,
+                new SensorConfig((*types)[i], class_name, display_name, units, abbrev, gen_alg, link, min, max, step,
                                min_undef, max_undef)); // add this type to the sensor factory
 
         well->addSensor(_sensor_factory->createSensor(

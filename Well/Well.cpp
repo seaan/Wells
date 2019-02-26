@@ -11,8 +11,8 @@
  * @param num_sensors the number of sensors the well contains
  */
 Well::Well(char *id, char *company, int num_sensors) {
-    this->_id = new char();
-    this->_company = new char();
+    this->_id = new char[32];
+    this->_company = new char[32];
 
     strcpy(_id, id);
     strcpy(_company, company);
