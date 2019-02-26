@@ -2,9 +2,6 @@
 // Created by sean on 2/4/19.
 //
 
-#include <cstring>
-#include <stdlib.h>
-
 #include "Sensor.h"
 
 /**
@@ -12,24 +9,26 @@
  * @param
  */
 Sensor::Sensor(SensorConfig *sensor_data) {
-    this->_sensor_data = sensor_data;
+    this->config = sensor_data;
 
-    this->_value = 0; // starts out as 0, will be updated in update()
-    this->_enabled = true; // starts out false, user will enable
+    this->_value = this->config->_init_value;
+    this->_last_value = this->config->_init_value;
+    this->_enabled = true; // starts out true, user will enable/disable
 }
 
 /**
  * Destructor for sensor.
  */
 Sensor::~Sensor() {
-    delete _sensor_data;
+    delete config;
 }
 
 /**
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    this->_value = this->_sensor_data->_gen->generate(_sensor_data->_min, _sensor_data->_max, _sensor_data->_step);
+    this->_last_value = _value;
+    this->_value = this->config->_gen->generate(config->_min, config->_max, config->_step, 0, _link);
 }
 
 /**
@@ -53,7 +52,7 @@ bool Sensor::getEnabled() {
  * @return sensor display name
  */
 char *Sensor::getDisplayName() {
-    return this->_sensor_data->_display_name;
+    return this->config->_display_name;
 }
 
 /**
@@ -61,7 +60,7 @@ char *Sensor::getDisplayName() {
  * @return sensor unit abbreviation
  */
 char *Sensor::getAbbrev() {
-    return this->_sensor_data->_abbrev;
+    return this->config->_abbrev;
 }
 
 /**
@@ -69,7 +68,7 @@ char *Sensor::getAbbrev() {
  * @return sensor type
  */
 char *Sensor::getType() {
-    return this->_sensor_data->_type;
+    return this->config->_type;
 }
 
 /**
@@ -78,4 +77,28 @@ char *Sensor::getType() {
  */
 double Sensor::getValue() {
     return this->_value;
+}
+
+/**
+ *
+ * @return
+ */
+char *Sensor::getLinkInfo() {
+    return this->config->_link_info;
+}
+
+/**
+ *
+ * @param link
+ */
+void Sensor::setLink(Sensor *link) {
+    this->_link = link;
+}
+
+/**
+ *
+ * @return
+ */
+bool Sensor::valueChanged() {
+    return this->_last_value != this->_value;
 }

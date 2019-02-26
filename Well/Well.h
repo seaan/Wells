@@ -35,6 +35,8 @@ public:
 
     std::vector<char *> getSensorTypes();
 
+    void initLinks();
+
 protected:
     std::vector<Sensor *> _sensors;
 

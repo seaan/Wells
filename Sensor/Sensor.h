@@ -6,8 +6,9 @@
 #define WELLS_SENSOR_H
 
 #include <cstring>
-#include "DataGen.h"
 #include "SensorConfig.h"
+
+class SensorConfig; // forward declaration TODO meh
 
 class Sensor {
 public:
@@ -29,10 +30,17 @@ public:
 
     double getValue();
 
-private:
-    SensorConfig *_sensor_data;
+    char *getLinkInfo();
 
-    double _value;
+    void setLink(Sensor *link);
+
+    bool valueChanged();
+
+private:
+    SensorConfig *config;
+
+    Sensor *_link;
+    double _value, _last_value;
     bool _enabled;
 };
 

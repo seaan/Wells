@@ -1,23 +1,24 @@
 //
-// Created by sean on 2/25/19.
+// Created by seanw on 2/25/2019.
 //
 
 #ifndef WELLS_SENSORCONFIG_H
 #define WELLS_SENSORCONFIG_H
 
-#include "Sensor.h"
 
-class Sensor; // forward declaration TODO meh
+#include "DataGen.h"
+
+class DataGen; // forward declaration TODO meh
 
 struct SensorConfig {
-    char *_type, *_class_name, *_display_name, *_units, *_abbrev;
-    double _min, _max, _step;
+    char *_type, *_class_name, *_display_name, *_units, *_abbrev, *_link_info;
+    double _min, _max, _step, _init_value;
     bool _min_undef, _max_undef;
     DataGen *_gen;
-    Sensor *_link;
 
     SensorConfig(char *type, char *class_name, char *display_name, char *units, char *abbrev, char *gen_alg,
-                 Sensor *link, double min, double max, double step, bool min_undef, bool max_undef);
+                 char *link_info, double min, double max, double step, bool min_undef, bool max_undef);
 };
+    
 
 #endif //WELLS_SENSORCONFIG_H

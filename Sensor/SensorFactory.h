@@ -15,7 +15,7 @@ public:
 
     static SensorFactory *getInstance();
 
-    void defineType(SensorConfig *);
+    void defineType(SensorConfig *config);
 
     Sensor *createSensor(char *type);
 

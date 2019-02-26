@@ -5,7 +5,6 @@
 #include "Simulation.h"
 
 #include <sys/timeb.h>
-#include <cstring>
 
 /**
  * Constructs a Simulation object, initializes _display.
@@ -63,7 +62,7 @@ void Simulation::run() {
         current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
         // Check for 5 second interval to print status to screen
         if (current_time >= target_time) {
-            target_time += 1.0; // Set struct_time for next 5 second interval TODO change to 5
+            target_time += 5.0; // Set struct_time for next 5 second interval
             update(); // update all wells before log
             log(); // log all wells status
             cout << "- - - - - - - - - - - - - - - - - -\n";

@@ -251,7 +251,7 @@ bool OilFieldDataParser::getWellData(char *id, char *opr, int *numSensors, char 
 //							units this sensor is measuring will be copied.
 //			dataGenAlg - Pointer to char array into which the name of the data
 //							generation algorithm for this sensor will be copied.
-//			linkSenType - Pointer to char array into which the name of the _link-to
+//			linkSenType - Pointer to char array into which the name of the link-to
 //							sensor will be copied if appropriate.
 //----------------------------------------------------------------------------------
 bool OilFieldDataParser::getSensorData(char *type, char *className, 
@@ -388,7 +388,7 @@ bool OilFieldDataParser::getSensorData(char *type, char *className,
 						else
 							return false; // Oops!
 					}
-					// Get the _link sensor type
+					// Get the link sensor type
 					else if(strcmp(line, "<LINK_SENSOR>") == 0)
 					{
 						if(getNextLine(line, 127))

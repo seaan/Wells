@@ -11,11 +11,14 @@
 class WellFactory {
 public:
     ~WellFactory();
+
     static WellFactory *getInstance();
 
     Well *createWell(OilFieldDataParser *data);
+
 private:
     WellFactory();
+
     SensorFactory *_sensor_factory;
 };
 

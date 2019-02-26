@@ -1,5 +1,5 @@
 //
-// Created by sean on 2/25/19.
+// Created by seanw on 2/25/2019.
 //
 
 #include "SensorConfig.h"
@@ -12,7 +12,7 @@
  * @param units
  * @param abbrev
  * @param gen_alg
- * @param link
+ * @param link_info
  * @param min
  * @param max
  * @param step
@@ -20,40 +20,43 @@
  * @param max_undef
  */
 SensorConfig::SensorConfig(char *type, char *class_name, char *display_name, char *units, char *abbrev, char *gen_alg,
-                           Sensor *link, double min, double max, double step, bool min_undef, bool max_undef) {
+                           char *link_info, double min, double max, double step, bool min_undef, bool max_undef) {
     this->_type = new char[32];
     this->_class_name = new char[32];
     this->_display_name = new char[32];
     this->_units = new char[32];
     this->_abbrev = new char[32];
-    this->_link = new char[32];// allocate space for all of our strings
+    this->_link_info = new char[32];// allocate space for all of our strings
 
     strcpy(this->_type, type);
     strcpy(this->_class_name, class_name);
     strcpy(this->_display_name, display_name);
     strcpy(this->_units, units);
-    strcpy(this->_abbrev, abbrev); // copy the input into the member variables
+    strcpy(this->_abbrev, abbrev);
+    strcpy(this->_link_info, link_info); // copy the input into the member variables
 
     this->_min = min;
     this->_max = max;
     this->_step = step;
     this->_min_undef = min_undef;
     this->_max_undef = max_undef;
-    this->_link = link;
 
+    this->_init_value = 0;
     if (strcmp(gen_alg, "RAND_MIN2MAX") == 0) {
-        _gen = new RandGen();
+        this->_gen = new RandGen();
     }
     if (strcmp(gen_alg, "STEPINC_MIN2MAX") == 0) {
-        _gen = new StepIncGen(min);
+        this->_gen = new StepIncGen();
+        this->_init_value = max;
     }
     if (strcmp(gen_alg, "STEPDEC_MAX2MIN") == 0) {
-        _gen = new StepDecGen(max);
+        this->_gen = new StepDecGen();
+        this->_init_value = min;
     }
     if (strcmp(gen_alg, "FOLLOWLINK_IFGREATER") == 0) {
-        _gen = new FollowGreaterGen();
+        this->_gen = new FollowGreaterGen();
     }
     if (strcmp(gen_alg, "FOLLOWLINK_IFCHANGED") == 0) {
-        _gen = new FollowChangedGen();
+        this->_gen = new FollowChangedGen();
     }
 }

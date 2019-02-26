@@ -10,7 +10,7 @@ WellFactory::~WellFactory() {
 
 WellFactory *WellFactory::getInstance() {
     static WellFactory *instance = nullptr;
-    if(instance == nullptr)
+    if (instance == nullptr)
         instance = new WellFactory();
     return instance;
 }
@@ -24,7 +24,7 @@ Well *WellFactory::createWell(OilFieldDataParser *data) {
     char *id = new char[32];
     char *opr = new char[32];
     int num_sensors;
-    char ***types = new char**;
+    char ***types = new char **;
 
     // Sensor variables
     char *class_name = new char[32];
@@ -46,11 +46,13 @@ Well *WellFactory::createWell(OilFieldDataParser *data) {
                             abbrev, gen_alg, link);
         _sensor_factory->defineType(
                 new SensorConfig((*types)[i], class_name, display_name, units, abbrev, gen_alg, link, min, max, step,
-                               min_undef, max_undef)); // add this type to the sensor factory
+                                 min_undef, max_undef)); // add this type to the sensor factory
 
         well->addSensor(_sensor_factory->createSensor(
                 (*types)[i])); // grab a sensor of the type we need and put it into the vector of sensors
     }
+
+    well->initLinks();
 
     return well;
 }

@@ -12,7 +12,7 @@
  * @param step
  * @return
  */
-double DataGen::generate(double min, double max, double step) {
+double DataGen::generate(double min, double max, double step, double value, Sensor *link) {
     return -1;
 }
 
@@ -23,16 +23,21 @@ double DataGen::generate(double min, double max, double step) {
  * @param step
  * @return
  */
-double RandGen::generate(double min, double max, double step) {
+double RandGen::generate(double min, double max, double step, double value, Sensor *link) {
     return min + (rand() % (int) (max - min));
 }
 
 /**
  *
  * @param min
+ * @param max
+ * @param step
+ * @return
  */
-StepIncGen::StepIncGen(double min) {
-    this->count = min;
+double StepIncGen::generate(double min, double max, double step, double value, Sensor *link) {
+    if (value < max)
+        value += (rand() % (int) (step + 1));
+    return value;
 }
 
 /**
@@ -42,18 +47,10 @@ StepIncGen::StepIncGen(double min) {
  * @param step
  * @return
  */
-double StepIncGen::generate(double min, double max, double step) {
-    if (this->count < max)
-        this->count += (rand() % (int) (step+1));
-    return this->count;
-}
-
-/**
- *
- * @param max
- */
-StepDecGen::StepDecGen(double max) {
-    this->count = max;
+double StepDecGen::generate(double min, double max, double step, double value, Sensor *link) {
+    if (value > min)
+        value -= (rand() % (int) (step + 1));
+    return value;
 }
 
 /**
@@ -63,10 +60,9 @@ StepDecGen::StepDecGen(double max) {
  * @param step
  * @return
  */
-double StepDecGen::generate(double min, double max, double step) {
-    if (this->count > min)
-        this->count -= (rand() % (int) (step+1));
-    return this->count;
+double FollowGreaterGen::generate(double min, double max, double step, double value, Sensor *link) {
+    if (value < link->getValue()) return link->getValue();
+    else return value;
 }
 
 /**
@@ -76,17 +72,8 @@ double StepDecGen::generate(double min, double max, double step) {
  * @param step
  * @return
  */
-double FollowGreaterGen::generate(double min, double max, double step) {
-    return DataGen::generate(0, 0, 0);
-}
-
-/**
- *
- * @param min
- * @param max
- * @param step
- * @return
- */
-double FollowChangedGen::generate(double min, double max, double step) {
-    return DataGen::generate(0, 0, 0);
+double FollowChangedGen::generate(double min, double max, double step, double value, Sensor *link) {
+    if (link->valueChanged())
+        return min + (rand() % (int) (max - min));
+    else return 0;
 }

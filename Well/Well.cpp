@@ -18,7 +18,7 @@ Well::Well(char *id, char *company, int num_sensors) {
     strcpy(_company, company);
     this->_num_sensors = num_sensors;
 
-    _enabled = true;
+    _enabled = true; // TODO set back to false
 }
 
 /**
@@ -112,4 +112,18 @@ std::vector<char *> Well::getSensorTypes() {
         result.push_back(sensor->getType());
     }
     return result;
+}
+
+/**
+ * Attempts to initialize links for all sensors on this well
+ */
+void Well::initLinks() {
+    for (Sensor *sensor: _sensors) {
+        if (strcmp(sensor->getLinkInfo(), "NONE") != 0) { // if it isn't NONE
+            for (Sensor *link: _sensors) { // search through each sensor
+                if (strcmp(link->getType(), sensor->getLinkInfo()) == 0) // once we've found the sensor to link to
+                    sensor->setLink(link);
+            }
+        }
+    }
 }
