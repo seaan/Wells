@@ -2,7 +2,9 @@
 // Created by seanw on 2/25/2019.
 //
 
+#include <cfloat>
 #include "SensorConfig.h"
+#include "../DataGen/DataGenFactory.h"
 
 /**
  *
@@ -37,26 +39,14 @@ SensorConfig::SensorConfig(char *type, char *class_name, char *display_name, cha
 
     this->_min = min;
     this->_max = max;
+
+    if (max_undef) max = DBL_MAX;
+    if (min_undef) min = DBL_MIN;
+
     this->_step = step;
-    this->_min_undef = min_undef;
-    this->_max_undef = max_undef;
 
     this->_init_value = 0;
-    if (strcmp(gen_alg, "RAND_MIN2MAX") == 0) {
-        this->_gen = new RandGen();
-    }
-    if (strcmp(gen_alg, "STEPINC_MIN2MAX") == 0) {
-        this->_gen = new StepIncGen();
-        this->_init_value = max;
-    }
-    if (strcmp(gen_alg, "STEPDEC_MAX2MIN") == 0) {
-        this->_gen = new StepDecGen();
-        this->_init_value = min;
-    }
-    if (strcmp(gen_alg, "FOLLOWLINK_IFGREATER") == 0) {
-        this->_gen = new FollowGreaterGen();
-    }
-    if (strcmp(gen_alg, "FOLLOWLINK_IFCHANGED") == 0) {
-        this->_gen = new FollowChangedGen();
-    }
+
+    DataGenFactory *datagen_factory = DataGenFactory::getInstance();
+    this->_gen = datagen_factory->createDataGen(gen_alg, &this->_init_value, max, min);
 }

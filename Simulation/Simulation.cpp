@@ -38,6 +38,7 @@ void Simulation::run() {
     target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
     cout << "Controls: Add/Remove Well [W], Add/Remove Sensor [S], Quit [Q] \n";
+
     while (!done)     // Start an eternal loop
     {
         // check for user input TODO re-enable

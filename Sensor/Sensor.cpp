@@ -28,7 +28,7 @@ Sensor::~Sensor() {
  */
 void Sensor::update() {
     this->_last_value = _value;
-    this->_value = this->config->_gen->generate(config->_min, config->_max, config->_step, 0, _link);
+    this->_value = this->config->_gen->generate(config->_min, config->_max, config->_step, this->_value, _link);
 }
 
 /**

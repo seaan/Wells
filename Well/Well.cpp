@@ -18,7 +18,7 @@ Well::Well(char *id, char *company, int num_sensors) {
     strcpy(_company, company);
     this->_num_sensors = num_sensors;
 
-    _enabled = true; // TODO set back to false
+    _enabled = false; // starts as false, user can enable/disable
 }
 
 /**
