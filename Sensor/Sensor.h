@@ -1,6 +1,12 @@
-//
-// Created by sean on 2/4/19.
-//
+/*******************************************************************
+*   CS 307 Programming Assignment 2
+*   File: Sensor.h
+*   Author: Sean Widmier
+*   Desc: An oil rigs simulation that logs and updates various sensors.
+*   Date: Date file was submitted to the instructor
+*
+*   I attest that this program is entirely my own work
+*******************************************************************/
 
 #ifndef WELLS_SENSOR_H
 #define WELLS_SENSOR_H
