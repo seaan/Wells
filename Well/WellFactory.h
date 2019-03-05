@@ -1,6 +1,12 @@
-//
-// Created by sean on 2/25/19.
-//
+/*******************************************************************
+*   CS 307 Programming Assignment 2
+*   File: WellFactory.h
+*   Author: Sean Widmier
+*   Desc: An oil rigs simulation that logs and updates various sensors.
+*   Date: Date file was submitted to the instructor
+*
+*   I attest that this program is entirely my own work
+*******************************************************************/
 
 #ifndef WELLS_WELLFACTORY_H
 #define WELLS_WELLFACTORY_H

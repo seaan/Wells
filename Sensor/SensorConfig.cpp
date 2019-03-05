@@ -1,6 +1,12 @@
-//
-// Created by seanw on 2/25/2019.
-//
+/*******************************************************************
+*   CS 307 Programming Assignment 2
+*   File: SensorConfig.cpp
+*   Author: Sean Widmier
+*   Desc: An oil rigs simulation that logs and updates various sensors.
+*   Date: Date file was submitted to the instructor
+*
+*   I attest that this program is entirely my own work
+*******************************************************************/
 
 #include <cfloat>
 #include "SensorConfig.h"
