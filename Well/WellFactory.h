@@ -11,8 +11,9 @@
 #ifndef WELLS_WELLFACTORY_H
 #define WELLS_WELLFACTORY_H
 
-#include "../Utility/OilFieldDataParser.h"
 #include "Well.h"
+#include "../Utility/OilFieldDataParser.h"
+#include "../Sensor/SensorFactory.h"
 
 class WellFactory {
 public:

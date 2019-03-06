@@ -13,7 +13,6 @@
 
 #include "../Sensor/Sensor.h"
 #include "../Utility/OilFieldDataParser.h"
-#include "../Sensor/SensorFactory.h"
 #include <string>
 #include <vector>
 
@@ -51,7 +50,6 @@ protected:
     char *_id;
     char *_company;
     int _num_sensors;
-    char ***_types;
 };
 
 

@@ -10,10 +10,17 @@
 
 #include "WellFactory.h"
 
+/**
+ *
+ */
 WellFactory::~WellFactory() {
 
 }
 
+/**
+ *
+ * @return
+ */
 WellFactory *WellFactory::getInstance() {
     static WellFactory *instance = nullptr;
     if (instance == nullptr)
@@ -21,10 +28,18 @@ WellFactory *WellFactory::getInstance() {
     return instance;
 }
 
+/**
+ *
+ */
 WellFactory::WellFactory() {
     _sensor_factory = SensorFactory::getInstance();
 }
 
+/**
+ *
+ * @param data
+ * @return
+ */
 Well *WellFactory::createWell(OilFieldDataParser *data) {
     // Well variables
     char *id = new char[32];

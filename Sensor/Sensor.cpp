@@ -17,8 +17,8 @@
 Sensor::Sensor(SensorConfig *sensor_data) {
     this->_config = sensor_data;
 
-    this->_value = this->config->_init_value;
-    this->_last_value = this->config->_init_value;
+    this->_value = this->_config->_init_value;
+    this->_last_value = this->_config->_init_value;
     this->_enabled = true; // starts out true, user will enable/disable
 }
 
@@ -33,7 +33,7 @@ Sensor::~Sensor() {
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    this->_value = this->_config->_gen->generate(_config->_min, _config->_max, _config->_step);
+    this->_value = this->_config->_gen->generate(_config->_min, _config->_max, _config->_step, this->_value, this->_link);
 }
 
 /**
@@ -89,7 +89,7 @@ double Sensor::getValue() {
  * @return
  */
 char *Sensor::getLinkInfo() {
-    return this->config->_link_info;
+    return this->_config->_link_info;
 }
 
 /**

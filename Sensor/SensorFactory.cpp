@@ -10,10 +10,17 @@
 
 #include "SensorFactory.h"
 
+/**
+ *
+ */
 SensorFactory::~SensorFactory() {
 
 }
 
+/**
+ *
+ * @return
+ */
 SensorFactory *SensorFactory::getInstance() {
     static SensorFactory *instance = nullptr;
     if (instance == nullptr)
@@ -21,15 +28,27 @@ SensorFactory *SensorFactory::getInstance() {
     return instance;
 }
 
+/**
+ *
+ * @param config
+ */
 void SensorFactory::defineType(SensorConfig *config) {
     std::string key(config->_type); // convert to string
     _types.insert({key, config});
 }
 
+/**
+ *
+ * @param type
+ * @return
+ */
 Sensor *SensorFactory::createSensor(char *type) {
     return new Sensor(_types[type]);
 }
 
+/**
+ *
+ */
 SensorFactory::SensorFactory() {
 
 }
