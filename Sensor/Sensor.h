@@ -14,7 +14,7 @@
 #include <cstring>
 #include "SensorConfig.h"
 
-class SensorConfig; // forward declaration TODO meh
+class SensorConfig; // TODO forward declaration meh
 
 class Sensor {
 public:
@@ -43,7 +43,7 @@ public:
     bool valueChanged();
 
 private:
-    SensorConfig *config;
+    SensorConfig *_config;
 
     Sensor *_link;
     double _value, _last_value;

@@ -15,7 +15,7 @@
  * @param
  */
 Sensor::Sensor(SensorConfig *sensor_data) {
-    this->config = sensor_data;
+    this->_config = sensor_data;
 
     this->_value = this->config->_init_value;
     this->_last_value = this->config->_init_value;
@@ -26,15 +26,14 @@ Sensor::Sensor(SensorConfig *sensor_data) {
  * Destructor for sensor.
  */
 Sensor::~Sensor() {
-    delete config;
+    delete _config;
 }
 
 /**
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    this->_last_value = _value;
-    this->_value = this->config->_gen->generate(config->_min, config->_max, config->_step, this->_value, _link);
+    this->_value = this->_config->_gen->generate(_config->_min, _config->_max, _config->_step);
 }
 
 /**
@@ -58,7 +57,7 @@ bool Sensor::getEnabled() {
  * @return sensor display name
  */
 char *Sensor::getDisplayName() {
-    return this->config->_display_name;
+    return this->_config->_display_name;
 }
 
 /**
@@ -66,7 +65,7 @@ char *Sensor::getDisplayName() {
  * @return sensor unit abbreviation
  */
 char *Sensor::getAbbrev() {
-    return this->config->_abbrev;
+    return this->_config->_abbrev;
 }
 
 /**
@@ -74,7 +73,7 @@ char *Sensor::getAbbrev() {
  * @return sensor type
  */
 char *Sensor::getType() {
-    return this->config->_type;
+    return this->_config->_type;
 }
 
 /**
