@@ -101,11 +101,11 @@ void Simulation::log() {
 
 /**
  * Initializes _data and creates all needed wells, then passes each their relevant sensor information.
- * @param fileName Name of the file to parse.
+ * @param file_name Name of the file to parse.
  */
-void Simulation::readFile(const char *fileName) {
+void Simulation::readFile(const char *file_name) {
     _data = OilFieldDataParser::getInstance();
-    _data->initDataFile(fileName);
+    _data->initDataFile(file_name);
 
     for (int i = 0; i < _data->getWellCount(); i++) { // for every well that we need to initialize
         _wells.push_back(_well_factory->createWell(_data));

@@ -14,7 +14,7 @@
 #include <cstring>
 #include "SensorConfig.h"
 
-class SensorConfig; // TODO forward declaration meh
+struct SensorConfig; // TODO forward declaration meh
 
 class Sensor {
 public:

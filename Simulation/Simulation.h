@@ -28,7 +28,7 @@ private:
 
     void log();
 
-    void readFile(const char *fileName);
+    void readFile(const char *file_name);
 
     void editWell();
 
