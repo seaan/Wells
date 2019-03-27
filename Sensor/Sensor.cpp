@@ -1,58 +1,40 @@
-//
-// Created by sean on 2/4/19.
-//
+/*******************************************************************
+*   CS 307 Programming Assignment 2
+*   File: Sensor.cpp
+*   Author: Sean Widmier
+*   Desc: An oil rigs simulation that logs and updates various sensors.
+*   Date: Date file was submitted to the instructor
+*
+*   I attest that this program is entirely my own work
+*******************************************************************/
 
-#include <cstring>
-#include <stdlib.h>
-
+#include "stdafx.h"
 #include "Sensor.h"
 
 /**
  * Constructs Sensor object, ises arguments to set member variables.
- * @param type sensor type
- * @param class_name sensor class name
- * @param display_name sensor display name
- * @param units sensor units
- * @param abbrev sensor unit abbreviation
- * @param min maximum sensor value
- * @param max minimum sensor value
+ * @param
  */
-Sensor::Sensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max) {
-    this->_type = new char();
-    this->_class_name = new char();
-    this->_display_name = new char();
-    this->_units = new char();
-    this->_abbrev = new char();
+Sensor::Sensor(SensorConfig *sensor_data) {
+    this->_config = sensor_data;
 
-    strcpy(this->_type, type);
-    strcpy(this->_class_name, class_name);
-    strcpy(this->_display_name, display_name);
-    strcpy(this->_units, units);
-    strcpy(this->_abbrev, abbrev);
-    this->_min = min;
-    this->_max = max;
-    this->_value = 0;
-    this->_enabled = false;
-
-    if (this->_max == 0) this->_max = 10000;
+    this->_value = this->_config->_init_value;
+    this->_last_value = this->_config->_init_value;
+    this->_enabled = true; // starts out true, user will enable/disable
 }
 
 /**
  * Destructor for sensor.
  */
 Sensor::~Sensor() {
-    delete _type;
-    delete _class_name;
-    delete _display_name;
-    delete _units;
-    delete _abbrev;
+    delete _config;
 }
 
 /**
  * Generates a random number for _value and sets it.
  */
 void Sensor::update() {
-    _value = _min + (rand() % (int) (_max - _min));
+    this->_value = this->_config->_gen->generate(_config->_min, _config->_max, _config->_step, this->_value, this->_link);
 }
 
 /**
@@ -76,7 +58,7 @@ bool Sensor::getEnabled() {
  * @return sensor display name
  */
 char *Sensor::getDisplayName() {
-    return this->_display_name;
+    return this->_config->_display_name;
 }
 
 /**
@@ -84,7 +66,7 @@ char *Sensor::getDisplayName() {
  * @return sensor unit abbreviation
  */
 char *Sensor::getAbbrev() {
-    return this->_abbrev;
+    return this->_config->_abbrev;
 }
 
 /**
@@ -92,7 +74,7 @@ char *Sensor::getAbbrev() {
  * @return sensor type
  */
 char *Sensor::getType() {
-    return this->_type;
+    return this->_config->_type;
 }
 
 /**
@@ -101,4 +83,28 @@ char *Sensor::getType() {
  */
 double Sensor::getValue() {
     return this->_value;
+}
+
+/**
+ *
+ * @return
+ */
+char *Sensor::getLinkInfo() {
+    return this->_config->_link_info;
+}
+
+/**
+ *
+ * @param link
+ */
+void Sensor::setLink(Sensor *link) {
+    this->_link = link;
+}
+
+/**
+ *
+ * @return
+ */
+bool Sensor::valueChanged() {
+    return this->_last_value != this->_value;
 }

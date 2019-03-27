@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\DataGen">
+      <UniqueIdentifier>{0d36719d-82b5-444b-9015-402ed9e4af88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{64744471-506a-40b3-ba79-ae2ba033804d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sensor">
+      <UniqueIdentifier>{4c025c1c-14aa-47ab-bed5-d2349002266b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Simulation">
+      <UniqueIdentifier>{08cbdae3-82bd-487d-88fe-6a276cf71ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Well">
+      <UniqueIdentifier>{3f1cb192-38ac-4ad3-a717-c4b4bed58ea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Display">
+      <UniqueIdentifier>{b2588be6-7753-44f9-a3ee-debe65fa79de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataGen">
+      <UniqueIdentifier>{4ce7016d-ec37-4e00-b6ff-1c87181f7ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{a299d75c-fc74-4895-a2ff-7c31993d8277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Display">
+      <UniqueIdentifier>{336e136a-8485-42cc-95eb-a08b7409973f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Well">
+      <UniqueIdentifier>{d8a815c4-5b7b-4433-95e2-79bcef2477bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Simulation">
+      <UniqueIdentifier>{925123fb-e055-48cb-9c26-7c9ce4d971b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sensor">
+      <UniqueIdentifier>{62026b0e-badd-4c87-9a7c-d634890b64e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Wells.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WellsDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor\Sensor.h">
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor\SensorConfig.h">
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Sensor\SensorFactory.h">
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\OilFieldDataParser.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="DataGen\DataGen.h">
+      <Filter>Header Files\DataGen</Filter>
+    </ClInclude>
+    <ClInclude Include="DataGen\DataGenFactory.h">
+      <Filter>Header Files\DataGen</Filter>
+    </ClInclude>
+    <ClInclude Include="Display\Display.h">
+      <Filter>Header Files\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="Well\Well.h">
+      <Filter>Header Files\Well</Filter>
+    </ClInclude>
+    <ClInclude Include="Well\WellFactory.h">
+      <Filter>Header Files\Well</Filter>
+    </ClInclude>
+    <ClInclude Include="Well\WellMsg.h">
+      <Filter>Header Files\Well</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation\Simulation.h">
+      <Filter>Header Files\Simulation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Wells.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WellsDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataGen\DataGen.cpp">
+      <Filter>Source Files\DataGen</Filter>
+    </ClCompile>
+    <ClCompile Include="DataGen\DataGenFactory.cpp">
+      <Filter>Source Files\DataGen</Filter>
+    </ClCompile>
+    <ClCompile Include="Display\Display.cpp">
+      <Filter>Source Files\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\OilFieldDataParser.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor\Sensor.cpp">
+      <Filter>Source Files\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor\SensorConfig.cpp">
+      <Filter>Source Files\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Sensor\SensorFactory.cpp">
+      <Filter>Source Files\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="Simulation\Simulation.cpp">
+      <Filter>Source Files\Simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="Well\Well.cpp">
+      <Filter>Source Files\Well</Filter>
+    </ClCompile>
+    <ClCompile Include="Well\WellFactory.cpp">
+      <Filter>Source Files\Well</Filter>
+    </ClCompile>
+    <ClCompile Include="Well\WellMsg.cpp">
+      <Filter>Source Files\Well</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Wells.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Wells.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Wells.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
