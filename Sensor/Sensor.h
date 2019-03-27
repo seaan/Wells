@@ -1,14 +1,24 @@
-//
-// Created by sean on 2/4/19.
-//
+/*******************************************************************
+*   CS 307 Programming Assignment 2
+*   File: Sensor.h
+*   Author: Sean Widmier
+*   Desc: An oil rigs simulation that logs and updates various sensors.
+*   Date: Date file was submitted to the instructor
+*
+*   I attest that this program is entirely my own work
+*******************************************************************/
 
 #ifndef WELLS_SENSOR_H
 #define WELLS_SENSOR_H
 
+#include <cstring>
+#include "SensorConfig.h"
+
+struct SensorConfig; // TODO forward declaration meh
 
 class Sensor {
 public:
-    Sensor(char *type, char *class_name, char *display_name, char *units, char *abbrev, double min, double max);
+    Sensor(SensorConfig *sensor_data);
 
     ~Sensor();
 
@@ -26,10 +36,17 @@ public:
 
     double getValue();
 
-private:
-    char *_type, *_class_name, *_display_name, *_units, *_abbrev;
-    double _min, _max, _value;
+    char *getLinkInfo();
 
+    void setLink(Sensor *link);
+
+    bool valueChanged();
+
+private:
+    SensorConfig *_config;
+
+    Sensor *_link;
+    double _value, _last_value;
     bool _enabled;
 };
 

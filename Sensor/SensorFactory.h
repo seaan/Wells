@@ -1,6 +1,6 @@
 /*******************************************************************
 *   CS 307 Programming Assignment 2
-*   File: WellMsg.h
+*   File: SensorFactory.h
 *   Author: Sean Widmier
 *   Desc: An oil rigs simulation that logs and updates various sensors.
 *   Date: Date file was submitted to the instructor
@@ -8,27 +8,28 @@
 *   I attest that this program is entirely my own work
 *******************************************************************/
 
-#ifndef WELLS_WELLMSG_H
-#define WELLS_WELLMSG_H
+#ifndef WELLS_SENSORFACTORY_H
+#define WELLS_SENSORFACTORY_H
 
-#include "Well.h"
-#include <string>
-#include <vector>
 
-class WellMsg {
+#include "Sensor.h"
+#include <map>
+
+class SensorFactory {
 public:
-    WellMsg(Well *well);
+    ~SensorFactory();
 
-    ~WellMsg();
+    static SensorFactory *getInstance();
 
-    std::vector<char *> getSensorInfo();
+    void defineType(SensorConfig *config);
 
-    char *getWellInfo();
+    Sensor *createSensor(char *type);
 
 private:
-    char *_well_info;
-    std::vector<char *> _sensor_info;
+    SensorFactory();
+
+    std::map<std::string, SensorConfig *> _types;
 };
 
 
-#endif //WELLS_WELLMSG_H
+#endif //WELLS_SENSORFACTORY_H
