@@ -108,3 +108,57 @@ void Sensor::setLink(Sensor *link) {
 bool Sensor::valueChanged() {
     return this->_last_value != this->_value;
 }
+
+//-----------------------------------------
+// Draw the sensor
+//-----------------------------------------
+void Sensor::drawSensor(CDC *cdc, int ulx, int uly, int lrx, int lry)
+{
+	CBrush *oldBrush = NULL;
+	CRect textRect;
+	char line[32];
+	int rVal;
+
+	if(this->_enabled)
+	{
+		CBrush bgBrush, fgBrush;
+		bgBrush.CreateSolidBrush(RGB(0,0,0));	// Create brush from predefined background color
+		fgBrush.CreateSolidBrush(RGB(0,0,0));	// Create brush from predefined foreground color
+		
+		// Erase what was there
+		oldBrush = (CBrush *)cdc->SelectObject(&bgBrush);
+		cdc->Rectangle(ulx, uly, lrx, lry);
+		// Print the sensor name at the top
+		cdc->SetBkColor(RGB(0,0,0)); // Set text background
+		cdc->SetTextColor(RGB(255,255,255)); // Set text color
+		textRect.left = ulx;
+		textRect.right = lrx;
+		textRect.top = uly + 5;
+		textRect.bottom = uly + 20;
+		// Draw text args: name, -1 means compute length from char array in arg 1,
+		//                 rect is rectangle to draw in, DT_CENTER means center in the rect
+		cdc->DrawText(this->_config->_display_name, -1, textRect, DT_CENTER);
+		// Print the sensor abbreviation at the bottom
+		textRect.top = lry - 20;
+		textRect.bottom = textRect.top + 20;
+		cdc->DrawText(this->_config->_abbrev, -1, textRect, DT_CENTER);
+		// Center the current reading text
+		textRect.top = uly + ((lry - uly) / 2) - 10;
+		textRect.bottom = textRect.top + 20;
+		sprintf(line, "%.1f", this->_value);
+		cdc->DrawText(line, -1, textRect, DT_CENTER);
+		// Clean up before exiting
+		cdc->SelectObject(oldBrush);
+		bgBrush.DeleteObject();	// Destroy the brush
+		fgBrush.DeleteObject();	// Destroy the brush
+	}
+	else
+	{
+		// if this one is not monitored then just draw a white rectangle
+		oldBrush = (CBrush *)cdc->SelectStockObject(WHITE_BRUSH);
+		cdc->Rectangle(ulx, uly, lrx, lry);
+		// Clean up before exiting
+		cdc->SelectObject(oldBrush);
+	}
+}
+

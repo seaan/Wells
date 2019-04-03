@@ -42,6 +42,10 @@ public:
 
     void initLinks();
 
+	void drawCheckboxes(CDC *cdc, int ULX, int ULY, int LRX, int LRY);
+
+	void drawSensors(CDC *cdc, int ULX, int ULY, int LRX, int LRY);
+
 protected:
     std::vector<Sensor *> _sensors;
 

@@ -135,3 +135,51 @@ void Well::initLinks() {
         }
     }
 }
+
+//------------------------------------------------
+// Draw the sensor displays
+//------------------------------------------------
+void Well::drawSensors(CDC *cdc, int ULX, int ULY, int LRX, int LRY)
+{
+	int xBase, yBase, ulx, uly, lrx, lry;
+	int areaWidth = LRX - ULX;
+	int areaHeight = LRY - ULY;
+	int spacing = 5;						// Number of pixels between sensor boxes
+	int senWidth = (areaWidth - (4 * spacing)) / 3;	// Width allowing for spacing
+	int senHeight = (areaHeight - (6 * spacing)) / 5; // Height allowing for spacing
+
+	CBrush *oldBrush = NULL;
+	CBrush cbBrush;
+	cbBrush.CreateSolidBrush(RGB(255, 255, 255)); 
+
+	// Erase what was there
+	oldBrush = (CBrush *)cdc->SelectStockObject(WHITE_BRUSH);
+	cdc->Rectangle(ULX, ULY, LRX, LRY);
+
+	// Initialize starting point for UL corner of first sensor
+	xBase = ULX + spacing;
+	yBase = ULY + spacing;
+	ulx = xBase;
+	uly = yBase;
+	for(Sensor *sensor: _sensors)
+	{
+		// Set the UL corner and LR corner of the rectangle in which to draw the sensor
+		lrx = ulx + senWidth;
+		lry = uly + senHeight;
+		// Tell sensor to draw itself in this area
+		sensor->drawSensor(cdc, ulx, uly, lrx, lry);
+		// Increment for next sensor
+		uly = uly + senHeight + spacing;
+		if(uly > (ULY + (5 * (senHeight + spacing))))
+		{
+			// Need to reset for the next column
+			ulx = ulx + senWidth + spacing;
+			// and reset the Y 
+			uly = yBase;
+		}
+	}
+
+	// Clean up before exiting
+	cdc->SelectObject(oldBrush);
+	cbBrush.DeleteObject();	// Destroy the vehicle brush
+}

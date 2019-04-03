@@ -4,7 +4,6 @@
 // Author: Dr. Rick Coleman
 // Date: January 2010
 //====================================================================
-#define _CRT_SECURE_NO_WARNINGS
 
 #include "stdafx.h"
 #include "OilFieldDataParser.h"

@@ -17,11 +17,17 @@
 #include "../Sensor/SensorFactory.h"
 #include "../Well/WellFactory.h"
 
+#include "afxdialogex.h"
+
 class Simulation {
 public:
     Simulation();
 
-    void run();
+    void run(char* file_name);
+
+	std::vector<Well *> getWells();
+
+	void draw(CDC *cdc, Well* selected_well);
 
 private:
     void update();

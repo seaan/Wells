@@ -32,7 +32,7 @@ Simulation::Simulation() {
 /**
  * Initializes and runs simulation, occurs until program completion.
  */
-void Simulation::run() {
+void Simulation::run(char* file_name) {
     struct timeb struct_time;
     double current_time;
     double target_time;
@@ -42,48 +42,24 @@ void Simulation::run() {
 
     srand((unsigned int) (time(NULL))); // seed srand
 
-    // TODO re-enable
-    char *file_name = new char[128];
-    cout << "Please enter a file name: \n";
-    cin >> file_name;
     readFile(file_name);
     
-    ftime(&struct_time);    // Get start struct_time
-    current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
-    target_time = current_time + 5.0; // Set next 5 second interval struct_time
+    //ftime(&struct_time);    // Get start struct_time
+    //current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
+    //target_time = current_time + 5.0; // Set next 5 second interval struct_time
 
-    cout << "Controls: Add/Remove Well [W], Add/Remove Sensor [S], Quit [Q] \n";
-
-    while (!done)     // Start an eternal loop
-    {
-        // check for user input TODO re-enable
-        if(_kbhit()) {
-            switch(_getch()) {
-                case 'w':
-                    editWell();
-                    break;
-                case 's':
-                    editSensor();
-                    break;
-                case 'q':
-                    return;
-                    break;
-                default:
-                    cout << "Input unrecognized.\n";
-                    break;
-            }
-        }
-
-        ftime(&struct_time);    // Get the current struct_time
-        current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
-        // Check for 5 second interval to print status to screen
-        if (current_time >= target_time) {
-            target_time += 5.0; // Set struct_time for next 5 second interval
-            update(); // update all wells before log
-            log(); // log all wells status
-            cout << "- - - - - - - - - - - - - - - - - -\n";
-        }
-    }
+ //   while (!done)
+	//{
+ //       ftime(&struct_time);    // Get the current struct_time
+ //       current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
+ //       // Check for 5 second interval to print status to screen
+ //       if (current_time >= target_time) {
+ //           target_time += 5.0; // Set struct_time for next 5 second interval
+ //           update(); // update all wells before log
+ //           log(); // log all wells status
+ //           cout << "- - - - - - - - - - - - - - - - - -\n";
+ //       }
+ //   }
 }
 
 /**
@@ -190,4 +166,27 @@ void Simulation::editSensor() {
             well->setEnabledSensor(type, enabled); // tell the well to set the enabled status for the sensor
         }
     }
+}
+
+std::vector<Well *> Simulation::getWells() {
+	return _wells;
+}
+
+void Simulation::draw(CDC *cdc, Well* selected_well) {
+	static bool initialize = true;
+
+	static int iULX = 55;
+	static int iULY = 440;
+	static int iLRX = iULX + 350;
+	static int iLRY = iULY + 210;
+	static int iSenULX = 447;
+	static int iSenULY = 83;
+	static int iSenLRX = iSenULX + 608;
+	static int iSenLRY = iSenULY + 637;
+
+	if(selected_well != NULL)
+	{
+		selected_well->drawCheckboxes(cdc, iULX, iULY, iLRX, iLRY);
+		selected_well->drawSensors(cdc, iSenULX, iSenULY, iSenLRX, iSenLRY);
+	}
 }

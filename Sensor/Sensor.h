@@ -42,6 +42,8 @@ public:
 
     bool valueChanged();
 
+	void drawSensor(CDC *cdc, int ulx, int uly, int lrx, int lry);
+
 private:
     SensorConfig *_config;
 
