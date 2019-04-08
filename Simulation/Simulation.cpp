@@ -33,33 +33,11 @@ Simulation::Simulation() {
  * Initializes and runs simulation, occurs until program completion.
  */
 void Simulation::run(char* file_name) {
-    struct timeb struct_time;
-    double current_time;
-    double target_time;
-    bool done = false;  // while loop flag
-
     _well_factory = WellFactory::getInstance();
 
     srand((unsigned int) (time(NULL))); // seed srand
 
     readFile(file_name);
-    
-    //ftime(&struct_time);    // Get start struct_time
-    //current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
-    //target_time = current_time + 5.0; // Set next 5 second interval struct_time
-
- //   while (!done)
-	//{
- //       ftime(&struct_time);    // Get the current struct_time
- //       current_time = struct_time.time + (((double) (struct_time.millitm)) / 1000.0); // Convert to double
- //       // Check for 5 second interval to print status to screen
- //       if (current_time >= target_time) {
- //           target_time += 5.0; // Set struct_time for next 5 second interval
- //           update(); // update all wells before log
- //           log(); // log all wells status
- //           cout << "- - - - - - - - - - - - - - - - - -\n";
- //       }
- //   }
 }
 
 /**
@@ -186,7 +164,7 @@ void Simulation::draw(CDC *cdc, Well* selected_well) {
 
 	if(selected_well != NULL)
 	{
-		selected_well->drawCheckboxes(cdc, iULX, iULY, iLRX, iLRY);
+		//selected_well->drawCheckboxes(cdc, iULX, iULY, iLRX, iLRY);
 		selected_well->drawSensors(cdc, iSenULX, iSenULY, iSenLRX, iSenLRY);
 	}
 }

@@ -40,7 +40,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-ON_WM_TIMER (&CWellsDlg::OnTimer)
 END_MESSAGE_MAP()
 
 
@@ -60,7 +59,7 @@ void CWellsDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, FILE_NAME, _file_name);
 	DDX_Control(pDX, RUN_SIM, _run_sim);
 	DDX_Control(pDX, AVAILABLE_WELLS, _available_wells);
-	DDX_Control(pDX, SELECTED_WELLS, __selected_wells);
+	DDX_Control(pDX, SELECTED_WELLS, _selected_wells);
 }
 
 BEGIN_MESSAGE_MAP(CWellsDlg, CDialogEx)
@@ -72,6 +71,7 @@ BEGIN_MESSAGE_MAP(CWellsDlg, CDialogEx)
 	ON_LBN_SELCHANGE(SELECTED_WELLS, &CWellsDlg::OnLbnSelchangeSelectedWells)
 	ON_BN_CLICKED(ADD_WELL, &CWellsDlg::OnBnClickedWell)
 	ON_BN_CLICKED(REMOVE_WELL, &CWellsDlg::OnBnClickedRemoveWell)
+	ON_WM_TIMER(&CWellsDlg::OnTimer)
 END_MESSAGE_MAP()
 
 
@@ -106,8 +106,8 @@ BOOL CWellsDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
-	//this->SetWindowPos(NULL, xPos, yPos, width, height, 0); // dynamically resize the window
+	// TODO: Add extra initialization 
+	this->SetWindowPos(NULL, 0, 0, 1280, 900, 0); // dynamically resize the window
 	sim = new Simulation();
 	_file_name.SetWindowText("OilFieldData.xml");
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -170,8 +170,7 @@ void CWellsDlg::OnTimer(UINT nIDEvent)
 {
 	// Perform any updates to the oil field sim state here before calling OnPaint
 	// For example you might use the following lines
-	// OilFieldSim *ofs = OilFieldSim::getInstance();
-	// ofs->updateAll();
+	sim->update();
 
 	// Call the paint function to update the display
 	OnPaint();
@@ -182,9 +181,6 @@ void CWellsDlg::OnTimer(UINT nIDEvent)
 /************** graphical elements event handlers *************/
 void CWellsDlg::OnBnClickedSim()
 {
-	// TODO: Add your control notification handler code here
-	CWnd::SetTimer(1, 1000, 0);
-
 	char datafile[64];
 	_file_name.GetWindowText(datafile, 63); // Get string from the text widget
 	// Make sure we have a valid data file name
@@ -201,6 +197,7 @@ void CWellsDlg::OnBnClickedSim()
 	{
 		_available_wells.AddString(well->getid());
 	}
+	CWnd::SetTimer(1, 1000, 0);
 }
 
 void CWellsDlg::OnLbnSelchangeWells()
@@ -213,7 +210,7 @@ void CWellsDlg::OnLbnSelchangeSelectedWells()
 {
 	// TODO: Add your control notification handler code here
 	CString selection;
-	__selected_wells.GetText(__selected_wells.GetCurSel(), selection);
+	_selected_wells.GetText(_selected_wells.GetCurSel(), selection);
 
 	for(Well *well: sim->getWells())
 	{
@@ -232,7 +229,7 @@ void CWellsDlg::OnBnClickedWell()
 	CString selection;
 	_available_wells.GetText(_available_wells.GetCurSel(), selection);
 	_available_wells.DeleteString(_available_wells.GetCurSel());
-	__selected_wells.AddString(selection);
+	_selected_wells.AddString(selection);
 }
 
 
@@ -240,7 +237,7 @@ void CWellsDlg::OnBnClickedRemoveWell()
 {
 	// TODO: Add your control notification handler code 
 	CString selection;
-	__selected_wells.GetText(__selected_wells.GetCurSel(), selection);
-	__selected_wells.DeleteString(__selected_wells.GetCurSel());
+	_selected_wells.GetText(_selected_wells.GetCurSel(), selection);
+	_selected_wells.DeleteString(_selected_wells.GetCurSel());
 	_available_wells.AddString(selection);
 }

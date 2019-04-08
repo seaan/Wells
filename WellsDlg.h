@@ -17,10 +17,6 @@ public:
 // Dialog Data
 	enum { IDD = IDD_WELLS_DIALOG };
 
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-
-
 // Implementation
 protected:
 	HICON m_hIcon;
@@ -30,23 +26,25 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
-	afx_msg void OnTimer (UINT TimerVal); 
 	DECLARE_MESSAGE_MAP()
 
 	Simulation *sim;
-public:
+
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 	afx_msg void OnBnClickedSim();
-private:
-	CEdit _file_name;
-	Well* _selected_well;
-public:
+	afx_msg void OnTimer (UINT TimerVal); 
+
 	CButton _run_sim;
-private:
-	CListBox _available_wells;
-public:
-	CListBox __selected_wells;
+
+	CListBox _selected_wells;
 	afx_msg void OnLbnSelchangeWells();
 	afx_msg void OnLbnSelchangeSelectedWells();
 	afx_msg void OnBnClickedWell();
 	afx_msg void OnBnClickedRemoveWell();
+private:
+	CEdit _file_name;
+	Well* _selected_well;
+
+	CListBox _available_wells;
+	
 };

@@ -136,9 +136,9 @@ void Well::initLinks() {
     }
 }
 
-//------------------------------------------------
-// Draw the sensor displays
-//------------------------------------------------
+/**
+ * Draw the sensor displays
+ */
 void Well::drawSensors(CDC *cdc, int ULX, int ULY, int LRX, int LRY)
 {
 	int xBase, yBase, ulx, uly, lrx, lry;

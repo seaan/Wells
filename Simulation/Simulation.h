@@ -25,13 +25,13 @@ public:
 
     void run(char* file_name);
 
+	void update();
+
 	std::vector<Well *> getWells();
 
 	void draw(CDC *cdc, Well* selected_well);
 
 private:
-    void update();
-
     void log();
 
     void readFile(const char *fileName);

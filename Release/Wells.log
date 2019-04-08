@@ -1,5 +1,30 @@
-﻿Build started 4/3/2019 12:03:09 PM.
+﻿Build started 4/8/2019 11:01:01 AM.
+     1>Project "C:\Users\smw0025\Documents\Wells\Wells.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D _WINDOWS /D NDEBUG /D _AFXDLL /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release\Wells.pch" /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /wd4996 /analyze- /errorReport:prompt WellsDlg.cpp
+         WellsDlg.cpp
+     1>WellsDlg.cpp(74): warning C4002: too many actual parameters for macro 'ON_WM_TIMER'
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\smw0025\Documents\Wells\Release\Wells.exe" /INCREMENTAL:NO /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Users\smw0025\Documents\Wells\Release\Wells.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\smw0025\Documents\Wells\Release\Wells.lib" /MACHINE:X86 /SAFESEH Release\Wells.res
+         Release\DataGen.obj
+         Release\DataGenFactory.obj
+         Release\Display.obj
+         Release\Sensor.obj
+         Release\SensorConfig.obj
+         Release\SensorFactory.obj
+         Release\Simulation.obj
+         Release\stdafx.obj
+         Release\OilFieldDataParser.obj
+         Release\Wells.obj
+         Release\WellsDlg.obj
+         Release\Well.obj
+         Release\WellFactory.obj
+         Release\WellMsg.obj
+         Generating code
+         Finished generating code
+         Wells.vcxproj -> C:\Users\smw0025\Documents\Wells\Release\Wells.exe
+     1>Done Building Project "C:\Users\smw0025\Documents\Wells\Wells.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.03
+Time Elapsed 00:00:02.03
