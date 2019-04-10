@@ -47,4 +47,11 @@ private:
 
 	CListBox _available_wells;
 	
+public:
+	CEdit _sel_operator;
+	CEdit _sel_well;
+	CListBox _available_sensors;
+	CListBox _selected_sensors;
+	afx_msg void OnBnClickedAddSensor();
+	afx_msg void OnBnClickedRemoveSensor();
 };

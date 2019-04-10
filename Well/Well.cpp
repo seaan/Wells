@@ -52,9 +52,9 @@ void Well::setEnabled(bool e) {
  * @param e new enabled state for the sensor
  * @return Indicates success of search.
  */
-bool Well::setEnabledSensor(char *type, bool e) {
+bool Well::setEnabledSensor(char *name, bool e) {
     for (Sensor *sensor: _sensors) {
-        if (strcmp(sensor->getType(), type) == 0) {
+        if (strcmp(sensor->getDisplayName(), name) == 0) {
             sensor->setEnabled(e);
             return true;
         }

@@ -60,6 +60,10 @@ void CWellsDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, RUN_SIM, _run_sim);
 	DDX_Control(pDX, AVAILABLE_WELLS, _available_wells);
 	DDX_Control(pDX, SELECTED_WELLS, _selected_wells);
+	DDX_Control(pDX, IDC_OP, _sel_operator);
+	DDX_Control(pDX, IDC_SELWELL, _sel_well);
+	DDX_Control(pDX, AVAILABLE_SENSORS, _available_sensors);
+	DDX_Control(pDX, SELECTED_SENSORS, _selected_sensors);
 }
 
 BEGIN_MESSAGE_MAP(CWellsDlg, CDialogEx)
@@ -72,6 +76,8 @@ BEGIN_MESSAGE_MAP(CWellsDlg, CDialogEx)
 	ON_BN_CLICKED(ADD_WELL, &CWellsDlg::OnBnClickedWell)
 	ON_BN_CLICKED(REMOVE_WELL, &CWellsDlg::OnBnClickedRemoveWell)
 	ON_WM_TIMER(&CWellsDlg::OnTimer)
+	ON_BN_CLICKED(ADD_SENSOR, &CWellsDlg::OnBnClickedAddSensor)
+	ON_BN_CLICKED(REMOVE_SENSOR, &CWellsDlg::OnBnClickedRemoveSensor)
 END_MESSAGE_MAP()
 
 
@@ -208,7 +214,6 @@ void CWellsDlg::OnLbnSelchangeWells()
 
 void CWellsDlg::OnLbnSelchangeSelectedWells()
 {
-	// TODO: Add your control notification handler code here
 	CString selection;
 	_selected_wells.GetText(_selected_wells.GetCurSel(), selection);
 
@@ -217,6 +222,20 @@ void CWellsDlg::OnLbnSelchangeSelectedWells()
 		if(strcmp(well->getid(), selection) == 0)
 		{
 			_selected_well = well;
+			
+			_sel_well.SetWindowText(well->getid());
+			_sel_operator.SetWindowText(well->getCompany());
+
+			_selected_sensors.ResetContent();
+			_available_sensors.ResetContent();
+			
+			for(Sensor *sensor: _selected_well->getSensors()) {
+				if(sensor->getEnabled())
+					_selected_sensors.AddString(sensor->getDisplayName());
+				else
+					_available_sensors.AddString(sensor->getDisplayName());
+			}
+
 			OnPaint();
 		}
 	}
@@ -225,7 +244,6 @@ void CWellsDlg::OnLbnSelchangeSelectedWells()
 
 void CWellsDlg::OnBnClickedWell()
 {
-	// TODO: Add your control notification handler code here
 	CString selection;
 	_available_wells.GetText(_available_wells.GetCurSel(), selection);
 	_available_wells.DeleteString(_available_wells.GetCurSel());
@@ -235,9 +253,44 @@ void CWellsDlg::OnBnClickedWell()
 
 void CWellsDlg::OnBnClickedRemoveWell()
 {
-	// TODO: Add your control notification handler code 
 	CString selection;
 	_selected_wells.GetText(_selected_wells.GetCurSel(), selection);
 	_selected_wells.DeleteString(_selected_wells.GetCurSel());
 	_available_wells.AddString(selection);
+}
+
+
+void CWellsDlg::OnBnClickedAddSensor()
+{
+	CString selection;
+	_available_sensors.GetText(_available_sensors.GetCurSel(), selection);
+	_available_sensors.DeleteString(_available_sensors.GetCurSel());
+	_selected_sensors.AddString(selection);
+
+	// convert selection to char*
+	char *sel_ptr = 0;
+	sel_ptr = selection.GetBuffer(selection.GetLength());
+	selection.ReleaseBuffer();
+
+	_selected_well->setEnabledSensor(sel_ptr,true);
+
+	OnPaint();
+}
+
+
+void CWellsDlg::OnBnClickedRemoveSensor()
+{
+	CString selection;
+	_selected_sensors.GetText(_selected_sensors.GetCurSel(), selection);
+	_selected_sensors.DeleteString(_selected_sensors.GetCurSel());
+	_available_sensors.AddString(selection);
+
+	// convert selection to char*
+	char *sel_ptr = 0;
+	sel_ptr = selection.GetBuffer(selection.GetLength());
+	selection.ReleaseBuffer();
+		
+	_selected_well->setEnabledSensor(sel_ptr,false);
+
+	OnPaint();
 }

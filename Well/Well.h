@@ -24,7 +24,7 @@ public:
 
     void setEnabled(bool e);
 
-    bool setEnabledSensor(char *type, bool e);
+    bool setEnabledSensor(char *name, bool e);
 
     bool getEnabled();
 
