@@ -1,8 +1,19 @@
-//
-// Created by seanw on 2/25/2019.
-//
+/*******************************************************************
+*   CS 307 Programming Assignment 3
+*   File: DataGenFactory.cpp
+*   Author: Sean Widmier
+*   Desc: An oil rigs simulation that logs and updates various sensors.
+*   Date: Date file was submitted to the instructor
+*
+*   I attest that this program is entirely my own work
+*******************************************************************/
 
 #include "DataGenFactory.h"
+#include "RandGen.h"
+#include "StepIncGen.h"
+#include "StepDecGen.h"
+#include "FollowGreaterGen.h"
+#include "FollowChangedGen.h"
 
 DataGenFactory::~DataGenFactory() {
 

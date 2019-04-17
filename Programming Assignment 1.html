@@ -1,0 +1,344 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen"></style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}</style><style class="darkreader darkreader--user-agent" media="screen">html {
+    background-color: #181a1b !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #181a1b;
+}
+html, body, input, textarea, select, button {
+    border-color: #575757;
+    color: #e8e6e3;
+}
+a {
+    color: #3391ff;
+}
+table {
+    border-color: #4c4c4c;
+}
+::placeholder {
+    color: #bab5ab;
+}
+::selection {
+    background-color: #005ccc;
+    color: #ffffff;
+}
+::-moz-selection {
+    background-color: #005ccc;
+    color: #ffffff;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #545b00 !important;
+    color: #e8e6e3 !important;
+}
+::-webkit-scrollbar {
+    background-color: #1c1e1f;
+    color: #c5c1b9;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #2a2c2e;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #323537;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #3d4043;
+}
+::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+}
+* {
+    scrollbar-color: #2a2c2e #1c1e1f;
+}</style>
+<title>Programming Assignment 1</title>
+<style class="darkreader darkreader--override" media="screen">.jfk-bubble {
+    background-color: #000000 !important;
+}
+.vimvixen-hint {
+    background-color: #7b5300 !important;
+    border-color: #d8b013 !important;
+    color: #f3e8c8 !important;
+}</style></head>
+<body>
+<center>
+<table width="800" border="0">
+	<tbody><tr>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="760">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<hr size="4">
+			<h1 align="center">Programming Assignment 1</h1>
+			<h3 align="center">Date Posted: January 23<br>
+			Preliminary Class Diagram: February 6<br>
+			Class Outline: February 13<br>
+			Functionality Outline: February 20<br>
+			Final Project Due: Wednesday, February 27<br>
+			</h3>
+			<hr size="4">
+			<h2 align="center">
+			Programming Assignment 1
+			</h2>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>Background Information</b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			Drilling for oil in the United States has become a high tech industry.
+			The oil production companies relie on a complex array of sensors on each
+			drilling rig to monitor the state of all operations.  These sensors feed
+			data to a server mounted on the rig.  The server is connected to a 
+			network which enables workers on the rig as well as managers back at the
+			company offices to monitor all aspects of the operations.*     
+			<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>Your Assignment</b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			You are to create a program that simulates the sensors on oil rigs.
+			Following is a list of requirements based on a preliminary discussion
+			with representatives of Oilfield Instrumentation-USA (OI-USA)*.
+			<br><br>
+			<ol>
+				<li>
+					The application shall allow the user to select any number of
+					wells from a list of active wells. At any time while the
+					application is running the user shall be able to add or remove
+					wells from the selected list.
+				</li>
+				<li>
+					The application shall allow the user to select any number of
+					sensors to monitor on each selected well. At any time while the
+					application is running the user shall be able to add or remove
+					sensors being monitored for each selected well.
+
+				</li>
+				<li>
+					All data defining the list of active wells and the sensors
+					on each shall be read from a data file in a modified XML
+					format. A data parser class will be provided
+					to read and parse the data file.
+				</li>
+				<li>
+					Sensor readings for all selected wells shall be printed on
+					the screen at 5 second intervals.
+				</li>
+				<li>
+					In this version of the software, wells shall be identified by:
+					<ul>
+						<li>
+							The name of the company operating the well. 
+						</li>
+						<li>
+							A well ID in the format "nn-nnnn" where <i>n</i> is any
+							digit in the range 0..9.
+						</li>
+					</ul>
+				</li>
+				<li>
+					In this version of the software, possible sensors for each well shall include:
+					<ul>
+						<li>
+							<b>Hole depth</b> - Current depth of the drill hole measured in
+							feet.
+						</li>
+						<li>
+							<b>Bit depth</b> - Current location of the drill bit in the hole
+							measured in feet. This is the same as hole depth unless the bit is 
+							traveling, i.e. being removed or inserted.
+						</li>
+						<li>
+							<b>ROP (Rate of Penetration)</b> - Rate at which the bit is drilling.
+							This is measured in feet per hour of drilling except when the bit is
+							traveling when the reading displayed for this sensor is "Off Bottom",
+							i.e. is not currently drilling.
+						</li>
+						<li>
+							<b>Pump pressure</b> - This is the pressure in the pump which is
+							pumping the mud (lubricant) down into and out of the hole.  This
+							is measured in PSI (Pounds per Square Inch).
+						</li>
+						<li>
+							<b>Casing pressure</b> - Pressure in the bit casing. This is
+							measured in PSI.
+						</li>
+						<li>
+							<b>Flow out</b> - Mud flow out of the bit casing.  This is measured
+							in percentage (%) of the maximum possible flow.
+						</li>
+						<li>
+							<b>Torque Max</b> - Maximum torque that can be applied to the bit.
+							This is measured in kilo-footpounds (kflb).
+						</li>
+						<li>
+							<b>Mud Pit Volume</b> - Volume of mud (used as a lubricant) available.
+							This is measured in barrels abbreviated as <b><i>BBL</i></b>.
+							FYI: BBL as an abbreviation for barrel(s) is an old symbol. 
+							The double 'b' is thought to either represent the plural 
+							"barrels" or to avoid confusion with the abbreviation "bl" which 
+							stood for "bales."
+						</li>
+					</ul>
+				</li>
+				<li>
+					At 5 second intervals a report shall be printed on the screen giving the 
+					identifying information on each well being monitored and the current readings
+					of all selected sensors.  This display shall continue until the application is
+					terminated unless the user is selecting wells to add to or remove from the 
+					list of monitored wells or selecting sensors to add to or remove from the
+					list of sensors for any monitored well.
+				</li>
+				<li>
+					This project shall be created as a Win-32 Console Application using the 
+					Microsoft Visual Studio compiler (version 2010 or 2012 is acceptable).  
+					It shall <b>NOT</b> use precompiled headers.
+				</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>Deliverables</b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			These products as specified below shall be delivered  
+			electronically via e-mail to the instructor.<br> <br> 
+
+ 			<b>Preliminary Class Diagram -- </b>The class diagram shall be
+			drawn using standard UML notation and shall show all of the 
+			classes to be implemented in the software and their relationships
+			(dependencies, associations, generalizations, realizations, etc.)
+			The PCD shall be submitted for instructor 
+			approval NLT (Not Later Than) Wednesday, February 6.<br><br>
+
+ 			<b>Class Outline -- </b>The class outline shall 
+			list all proposed variables and functions in each proposed class 
+			with a brief description of what each does.
+			The class outline shall be submitted for instructor 
+			approval NLT (Not Later Than) Wednesday, February 13.<br><br>
+
+ 			<b>Functionality Outline -- </b>The functionality outline shall be an 
+			outline which will show the step-by-step functionality of the program. 
+			This should be taken out to a fair amount of detail. 
+			The functionality outline shall be submitted for instructor 
+			approval NLT (Not Later Than) Wednesday, February 20.<br><br>
+
+			<b>Final Project -- </b>The entire Visual Studio solution (compatible with
+			<b>Microsoft Visual Studio 2012, or 2015</b>) shall be compressed into a zip file and
+			submitted for instructor approval NLT Wednesday, February 27. Just turning in your source files is
+			not acceptable.<br>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>
+			<br><br>
+			We will have several class periods in which we will meet as a team to discuss and plan this
+			project.  We will be doing a lot of brainstorming and planning together, but remember that each 
+			person is responsibility for implementing the final design on their own.  
+			</b>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<hr size="4">
+			<br>
+			<b>
+			To download a sample executable as well as a data file and a parser for 
+			the data file click <a href="http://www.cs.uah.edu/~rcoleman/CS307/downloads/index.html">here</a>.</b>
+			<br><br>
+			<b>
+			To see a number of hints that may be useful for implementing this assignment
+			click <a href="http://www.cs.uah.edu/~rcoleman/CS307/ProgAssign/Prog1Hints.html">here</a>.</b>
+			<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<hr size="4">
+			<b><small>This programming assignment is based on a real-life situation 
+			and a software project that the instructor worked on while employed at 
+			SAIC.  To see information on this project check out the 
+			<a href="http://www.oiusa.com/">Oil Field Instrumentation - USA (OI-USA)</a> 
+			site and click on the link to "Drilling Instrumentation Systems" in the
+			lower portion of the display.
+			<br><br>
+		</small></b></td>
+	</tr>
+</tbody></table>
+</center>
+
+<br><br>
+
+
+</body></html>

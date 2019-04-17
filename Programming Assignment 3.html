@@ -1,0 +1,574 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><style class="darkreader darkreader--fallback" media="screen"></style><style class="darkreader darkreader--text" media="screen"></style><style class="darkreader darkreader--invert" media="screen"></style><style class="darkreader darkreader--inline" media="screen">[data-darkreader-inline-bgcolor] {
+  background-color: var(--darkreader-inline-bgcolor) !important;
+}
+[data-darkreader-inline-bgimage] {
+  background-image: var(--darkreader-inline-bgimage) !important;
+}
+[data-darkreader-inline-border] {
+  border-color: var(--darkreader-inline-border) !important;
+}
+[data-darkreader-inline-border-bottom] {
+  border-bottom-color: var(--darkreader-inline-border-bottom) !important;
+}
+[data-darkreader-inline-border-left] {
+  border-left-color: var(--darkreader-inline-border-left) !important;
+}
+[data-darkreader-inline-border-right] {
+  border-right-color: var(--darkreader-inline-border-right) !important;
+}
+[data-darkreader-inline-border-top] {
+  border-top-color: var(--darkreader-inline-border-top) !important;
+}
+[data-darkreader-inline-boxshadow] {
+  box-shadow: var(--darkreader-inline-boxshadow) !important;
+}
+[data-darkreader-inline-color] {
+  color: var(--darkreader-inline-color) !important;
+}
+[data-darkreader-inline-fill] {
+  fill: var(--darkreader-inline-fill) !important;
+}
+[data-darkreader-inline-stroke] {
+  stroke: var(--darkreader-inline-stroke) !important;
+}
+[data-darkreader-inline-outline] {
+  outline-color: var(--darkreader-inline-outline) !important;
+}</style><style class="darkreader darkreader--user-agent" media="screen">html {
+    background-color: #181a1b !important;
+}
+html, body, input, textarea, select, button {
+    background-color: #181a1b;
+}
+html, body, input, textarea, select, button {
+    border-color: #575757;
+    color: #e8e6e3;
+}
+a {
+    color: #3391ff;
+}
+table {
+    border-color: #4c4c4c;
+}
+::placeholder {
+    color: #bab5ab;
+}
+::selection {
+    background-color: #005ccc;
+    color: #ffffff;
+}
+::-moz-selection {
+    background-color: #005ccc;
+    color: #ffffff;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background-color: #545b00 !important;
+    color: #e8e6e3 !important;
+}
+::-webkit-scrollbar {
+    background-color: #1c1e1f;
+    color: #c5c1b9;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #2a2c2e;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #323537;
+}
+::-webkit-scrollbar-thumb:active {
+    background-color: #3d4043;
+}
+::-webkit-scrollbar-corner {
+    background-color: #181a1b;
+}
+* {
+    scrollbar-color: #2a2c2e #1c1e1f;
+}</style>
+<title>Programming Assignment 3</title>
+<style class="darkreader darkreader--override" media="screen">.jfk-bubble {
+    background-color: #000000 !important;
+}
+.vimvixen-hint {
+    background-color: #7b5300 !important;
+    border-color: #d8b013 !important;
+    color: #f3e8c8 !important;
+}</style></head>
+<body>
+<center>
+<table width="800" border="0">
+	<tbody><tr>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="10">
+			&nbsp;
+		</td>
+		<td width="760">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<hr size="4">
+			<h1 align="center">Programming Assignment 3</h1>
+			<h3 align="center">Date Posted: March 27<br>
+			Final Project Due: Wednesday, April 17<br>
+			Final Project DDD: Monday, April 22<br>
+			</h3>
+			<hr size="4">
+			<h2 align="center">
+			Programming Assignment 3
+			</h2>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>Background Information</b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			Drilling for oil in the United States has become a high tech industry.
+			The oil production companies relie on a complex array of sensors on each
+			drilling rig to monitor the state of all operations.  These sensors feed
+			data to a server mounted on the rig.  The server is connected to a 
+			network which enables workers on the rig as well as managers back at the
+			company offices to monitor all aspects of the operations.*     
+			<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>Your Assignment</b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			OI-USA is very pleased with the first two versions of the oil field monitor
+			simulation, but now they want to add a graphical user interface (GUI).
+			You are to create a simulation program that meets these requirements.
+			This programming assignment is to be version 3.0 of the program
+			created for programming assignments 1 and 2.
+			The following is a list of additional/modified requirements based 
+			on further discussions
+			with representatives of Oilfield Instrumentation-USA (OI-USA)*.
+			All requirements from programming assignments 1 and 2 which are not
+			modified by a paragraph below shall also be required for programming
+			assignment 3.
+			<br><br>
+			<ol>
+				<li>
+					In this version of the software all information on the wells being
+					monitored and their sensors shall be displayed in a graphical user
+					interface.  See the implementation hints below.  One possible layout
+					of the GUI is shown below.  Feel free to create your own GUI design
+					as long as it meets all the requirements.
+				</li>
+				<li>
+					A list of all available wells and a list of currently monitored wells
+					shall be maintained in List Boxes. 
+				</li>
+				<li>
+					If a well from the available wells
+					list is selected and the user indicates (possibly by clicking a button)
+					that the selected well is to become one that is monitored then that well
+					shall be removed from the "available" list and placed in the "monitored"
+					list.
+				</li>
+				<li>
+					If a well from the monitored wells
+					list is selected and the user indicates (possibly by clicking a button)
+					that the selected well is to be removed from the monitored list then that well
+					shall be removed from the "monitored" list and placed in the "available"
+					list.
+				</li>
+				<li>
+					When a well is selected from the "monitored" list then a list of all sensors
+					on that well shall be displayed with an indicator for each sensor showing
+					if it is currently being monitored.  The user shall be able to select/deselect
+					sensors to be monitored for this well.  In the sample layout above this is
+					done using simulated check boxes.  There are other ways of doing this such as using list
+					boxes or combo boxes.  The specific display widgets used is left up to the
+					programmer.
+				</li>
+				<li>
+					When a well is selected from the "monitored" list then a graphical display of
+					all currently monitored sensors shall be displayed.  This display should include
+					the display name of the sensor, the current reading, and the units.  A text only
+					display is all that is required (for example, that for Bit Depth in the 
+					image below), however the programmer may wish to use more graphical displays as shown.
+				</li>
+				<li>
+					Sensor data in the display shall be updated at one-second intervals.  See the hints
+					below on how to create a one-second timer object.
+				</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="5">
+			<b>Deliverables</b>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			These products as specified below shall be delivered  
+			electronically via e-mail to the instructor.<br> <br> 
+
+ 			<b>Since Programming Assignment 3 is for extra credit no
+			documentation is required and no extra credit will be given
+			for documentation.  This assignment is worth 15 extra credit
+			points added to your final total.  Note: the application
+			must meet the basic requirements to receive any extra credit.
+			There will be no credit given for a GUI that is non-functional.</b> <br><br>
+
+			<b>Final Project -- </b>The entire software project (compatible with
+			Microsoft Visual Studio 2010 or 2012) shall be compressed into a zip file and
+			submitted for instructor approval NLT Monday, April 22.<br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			&nbsp;
+		</td>
+		<td colspan="4">
+			The original XML file from program 2 can be used for testing.  The data 
+			file used for testing will still follow the same format
+			found in the original data file.<br><br><br>
+		</td>
+	</tr>
+</tbody></table>
+<table width="800" border="0">
+	<tbody><tr>
+		<td>
+			<b>Hints</b><br>
+			This information should guide you through creating the project and setting up things 
+			like the timer.<br><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<b>A sample GUI layout.  You do not have to use this layout.</b><br>
+					<center>
+					<img src="Programming%20Assignment%203_files/P3GUISample.jpg">
+					</center>
+		</td>
+	</tr><tr>
+		<td>
+			<b>Creating the Project and Adding the Oil Field Sim Classes</b><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<ol>
+				<li>
+					Create this as a MFC application program. 
+				</li>
+				<li>
+					In the MFC Application Wizard use the following settings:
+					<ol type="a">
+						<li>
+							Application type:<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Dialog based<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Uncheck "Use Unicode libraries"<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Check "MFC standard"<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Check "Use MFC in a shared DLL"<br>
+						</li>
+						<li>
+							User Interface Features:<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Accept all default settings<br>
+						</li>
+						<li>
+							Advanced Features:<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Uncheck "ActiveX controls"<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Accept all other defaults<br>
+						</li>
+						<li>
+							Generated Classes:<br>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Accept all defaults unless you want to change 
+							the name of the main classes.<br>
+						</li>
+					</ol> 
+				</li>
+				<li>
+					Copy all of the class files (.cpp and .h) from programming assignment 2 into 
+					the program 3 folder. <b>Do not copy the file containing main() or any of
+					the project specific files that visual studio created</b>. 
+				</li>
+				<li>
+					Add all the classes to the project<br>
+					<ol type="a">
+						<li>
+							Right click the "Header Files" folder in the Prog 3 project 
+							(in the Solution Explorer pane of Visual Studio)
+						</li>
+						<li>
+							Select "Add" and from the sub-menu select "Existing Item".
+						</li>
+						<li>
+							In the dialog box that appears select all of the .h files you 
+							just copied into the project.  Make sure you do not select any .h 
+							files that are already part of the project.
+						</li>
+						<li>
+							Repeat for the "Source Files" directory selecting all of the .cpp 
+							files you copied from program 2.
+						</li>
+					</ol> 
+				</li>
+				<li>
+					Compile the project.  Expect to get a multitude of errors.  Most, if not all 
+					of these will be "unexpected end of file while looking for precompiled headers".  
+					To fix this do the following:
+					<ol type="a">
+						<li>
+							Double click a line in the list of errors in the Output pane to display
+							the file where that error is found.
+						</li>
+						<li>
+							At the top of that source file add the line: <b>#include "stdafx.h"</b>
+							Put this <b>before</b> any other include.
+						</li>
+						<li>
+							Repeat this procedure for every other file where you got the "unexpected
+							end of file..." error.
+						</li>
+					</ol> 
+				</li>
+				<li>
+					Recompile the project.  This should give you a successful compile, but you 
+					will see a lot of warnings everywhere you used any of the standard Kernigan and 
+					Ritchie string functions (strcpy, strcmp, strlen, etc.).  Ignore these warnings
+					or put the line <b>#pragma warning(disable:4996)</b> as the first line (before
+					and #include statements) in a file.  This may make Visual Studio stop showing
+					these warnings after the file has been successfully compiled once.
+				</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<b>Editing the Dialog Resource</b><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<ol>
+				<li>
+					Open the IDD_<i>programName</i>_DIALOG dialog resource in the resource editor. 
+				</li>
+				<li>
+					Delete the Cancel button.
+				</li>
+				<li>
+					Delete the static text that appears in the middle of the dialog box. 
+				</li>
+				<li>
+					Resize the dialog to make it large enough to draw the Oil Field Sim.  
+					This doesn't have to
+					be exact as you can programmatically resize the window before it
+					is displayed.  See the "Resizing" hint below.
+				</li>
+				<li>
+					Move the OK button to a convenient location and change the caption to "End Simulation". 
+				</li>
+				<li>
+					Add a button and label
+					it "Run Simulation".  Add an event handler to the button.
+				</li>
+				<li>
+					Add other widgets as needed so that all required data is displayed.
+				</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<b>Resizing the Window Programmatically</b><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			You can resize the window dynamically while the program is running with the 
+			following function call which must be in <b><i>programName</i>Dlg.cpp</b>.
+			A good place to do this is in the OnInitDialog() function. Which, by the
+			way is also a good place to instantiate the Oil Field Sim object, read and parse
+			the data file, etc.<br><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<b>this-&gt;SetWindowPos(NULL, xPos, yPos, width, height, 0);</b><br><br>
+			<b>Where:</b><br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			xPos = On screen X coordinate of the upper left corner of the dialog.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			yPos = On screen Y coordinate of the upper left corner of the dialog.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			width = Width in pixels of the dialog.<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			height = Height in pixels of the dialog.<br><br>
+			Buttons, combo-boxes, text fields, etc. can also be moved using the variables
+			defined for them.  Since MS 2008 will not allow
+			you to create a variable to reference a static text object (label) you have to get a
+			pointer to them by calling GetDlgItem() and passing it the ID of the static text object.
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<br><b>Creating the Timer</b><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<ol>
+				<li>
+					Open the <b><i>programName</i>Dlg.h</b> file and add the following line to 
+					prototype a <b>public</b> event handler function in the class:<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<b>afx_msg  void  OnTimer (UINT TimerVal); </b><br><br> 
+				</li>
+				<li>
+					Open the <b><i>programName</i>Dlg.cpp</b> file and locate the 
+					<b>BEGIN_MESSAGE_MAP</b> and <b>END_MESSAGE_MAP</b> macros.
+				</li>
+				<li>
+					Just before the <b>END_MESSAGE_MAP</b> macro add the following line to 
+					create a timer event handler:<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<b>ON_WM_TIMER (&amp;<i>programNameDlg</i>::OnTimer)</b><br><br>
+				</li>
+				<li>
+					In the event handler function for the Run Simulation button add the following 
+					line <b>CWnd::SetTimer(1, 1000, 0);</b> to initialize 
+					the timer to fire at one second intervals.  Look for the comment line "TODO: Add extra initialization here"
+					to know where to put this.<br><br>
+				</li>
+				<li>
+					Add the OnTimer function:<br><br>
+<pre><b>
+	void <i>programNameDlg</i>::OnTimer(UINT nIDEvent)
+	{
+		// Perform any updates to the oil field sim state here before calling OnPaint
+		// For example you might use the following lines
+		// OilFieldSim *ofs = OilFieldSim::getInstance();
+		// ofs-&gt;updateAll();
+
+		// Call the paint function to update the display
+		OnPaint();
+
+		CDialog::OnTimer(nIDEvent); // Pass on to super
+	}
+</b></pre>
+				</li>
+				<li>
+					In the <b>OnPaint()</b> function add all the code to redraw the Oil Field Sim 
+					in its new state.  The code snippet below shows where in the 
+					<b>OnPaint()</b> function to add this. The line <b>CDC *cdc = this-&gt;GetDC();</b>, 
+					which you must add, will get a pointer to the device context to use for drawing.
+					<br><br> 
+<pre><b>
+	if (IsIconic())
+	{
+		// All of the code inside this if statement is automatically generated
+		// and is designed to handle painting when the application is iconified.
+	}
+	else
+	{
+		CDialog::OnPaint();
+		CDC *cdc = this-&gt;GetDC(); // Add this line to get a CDC for drawing
+
+		// Add your code to draw the Oil Field Sim here
+		//   Note: This can simply be a call such as:
+		//   ofSim-&gt;drawOilFieldSim(cdc);
+		// Where ofSim is a pointer to your Oil Field Sim class.
+	}
+</b></pre><br>
+
+					Note: When you compile you may get the following warning:<br><br>
+
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<b>warning C4002: too many actual parameters for macro 'ON_WM_TIMER'</b><br><br>
+
+					<b>You can ignore this warning.</b>
+				</li>
+			</ol>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<b>Run Stimulation Event Handler</b><br>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			The Event Handler function (called OnBnClickedRunSim in the demo) is where you
+			get the name of the data file from the dialog widgets.
+			Below is the code for the demo function. Note: m_DataFileNameTC was the variable
+			assigned to the text field object, and m_StartSimButton was the variable assigned to the
+			"Run Simulation" button for which this function is the callback.<br><br>
+<pre>	void CProg3Dlg::OnBnClickedRunSim()
+	{
+		char datafile[64];
+		theSim = OilFieldMonitorSim::getInstance();
+		m_DataFileNameTC.GetWindowText(datafile, 63); // Get string from the text widget
+		// Make sure we have a valid data file name
+		if(strlen(datafile) &lt; 5) return;
+		if((strcmp(&amp;datafile[strlen(datafile) - 4], ".xml") != 0) &amp;&amp;
+			(strcmp(&amp;datafile[strlen(datafile) - 4], ".XML") != 0)) return;
+
+		// If still here then we must have a valid data file
+		theSim-&gt;initSim(datafile);
+		m_StartSimButton.EnableWindow(false); // Disable the start sim button
+
+		// Get the list of wells and add them to the "available wells" list box
+		vector <well *=""> *wellsVec = theSim-&gt;getWells();
+		for(vector <well *="">::iterator itr = wellsVec-&gt;begin(); itr != wellsVec-&gt;end(); itr++)
+		{
+			m_AvailWellsListBox.AddString((*itr)-&gt;getWellID());
+		}
+	}
+</well></well></pre>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<br><br>
+			<b>Click <a href="http://www.cs.uah.edu/~rcoleman/CS307/ProgAssign/Prog3Hints.html"> here</a> for some more hints on completing
+			this assignment.<br><br>
+ 
+			<b>
+			To download a demonstration executable click <a href="http://www.cs.uah.edu/~rcoleman/CS307/downloads/index.html">here</a>. 
+			<br>Again the .exe has been changed to .txt so it will get around some firewalls.<br>
+			Change the .txt to .exe to run.  Use the same .xml data file from programming assignment 2.</b><br>
+			<br><br>
+		</b></td>
+	</tr>
+</tbody></table>
+</center>
+
+
+
+</body></html>
